@@ -1,0 +1,35 @@
+@font-face {
+  font-family: IranYekanMed;
+  src: url('../font/iranyekan/IRANYekanMediumFaNum.ttf');
+}
+@font-face {
+  font-family: IranYekanLight;
+  src: url('../font/iranyekan/IRANYekanLightFaNum.ttf');
+}
+@font-face {
+  font-family: IranYekanBold;
+  src: url('../font/iranyekan/IRANYekanBoldFaNum.ttf');
+}
+@font-face {
+  font-family: IranYekanReqular;
+  src: url('../font/iranyekan/IRANYekanRegularFaNum.ttf');
+}
+@font-face {
+  font-family: IranYekanFaNumBlack;
+  src: url('../font/iranyekan/iranyekanwebblackfanum.ttf');
+}
+.ir-yekan-light {
+  font-family: IranYekanLight !important;
+}
+.ir-yekan-black {
+  font-family: IranYekanFaNumBlack !important;
+}
+.ir-yekan-reqular {
+  font-family: IranYekanReqular !important;
+}
+.ir-yekan-bold {
+  font-family: IranYekanBold !important;
+}
+.ir-yekan-black {
+  font-family: IranYekanFaNumBlack !important;
+}
