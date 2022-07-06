@@ -15,6 +15,7 @@ import LinearProgress from '@mui/material/LinearProgress'
 import { Button } from '@mui/material'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
+import EditIcon from '@mui/icons-material/Edit';
 import Link from 'next/link'
 import { toast } from 'react-hot-toast'
 
@@ -52,12 +53,14 @@ const TaskList = () => {
   /// handle transactios
   const DeleteTask = (id: number) => {
     PrivateRequest()
-      .delete(`/task/${id}`)
+      .delete(`/task/delete/${id}`)
       .then(res => {
+        toast.success('این فعالیت حذف شد')
         console.log('res del', res)
         getTasks()
       })
       .catch(err => {
+        toast.error('این فعالیت حذف نشد')
         console.log('err', err)
       })
   }
@@ -106,6 +109,7 @@ const TaskList = () => {
                 <TableCell align='center'>اولویت </TableCell>
                 <TableCell align='center'>وضعیت</TableCell>
                 <TableCell align='center'>مشاهده</TableCell>
+                <TableCell align='center'>ویرایش</TableCell>
                 <TableCell align='center'>حذف</TableCell>
               </TableRow>
             </TableHead>
@@ -156,6 +160,11 @@ const TaskList = () => {
                           <VisibilityIcon />
                         </IconButton>
                       </Link>
+                    </TableCell>
+                    <TableCell align='center'>
+                      <IconButton onClick={() => DeleteTask(row.id)} aria-label='delete'>
+                        <EditIcon />
+                      </IconButton>
                     </TableCell>
                     <TableCell align='center'>
                       <IconButton onClick={() => DeleteTask(row.id)} aria-label='delete'>

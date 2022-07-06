@@ -48,8 +48,10 @@ const Tasks = () => {
       status_id: taskStatus,
       description: description
     }
-    PrivateRequest().post('/task', dataTask).then((res) => {
-      toast.success(' تشک جدید شد')
+    PrivateRequest().post('/task/store', dataTask).then((res) => {
+      if (res.status === 200) {
+        toast.success('تسک جدید ایجاد شد   ')
+      }
     }).catch((err) => {
       toast.error(err.response.data.error)
       console.log('err submit task', err)

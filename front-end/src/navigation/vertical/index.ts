@@ -47,7 +47,7 @@ const navigation = (): VerticalNavItemsType => {
         },
         {
           title: ' لیست کاربران',
-          path: '/'
+          path: '/users'
         }
       ]
     },
