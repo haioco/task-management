@@ -307,11 +307,11 @@ class TaskController extends Controller
         }
 
         $task = Task::find($request->task_id);
-        $file = $request->file('file');
+        $file_attachment = $request->file('file');
 
-            $path = Storage::putFile('public/tasks/' . $task->id, $file);
+            $path = Storage::putFile('public/tasks/' . $task->id, $file_attachment);
             $url = Storage::url($path);
-            $name = $file->getClientOriginalName();
+            $name = $file_attachment->getClientOriginalName();
             $taskAttachment = new TaskAttachment();
             $taskAttachment->task_id = $task->id;
             $taskAttachment->uploaded_by = Auth::id();
@@ -319,6 +319,9 @@ class TaskController extends Controller
             $taskAttachment->url = $url;
             $taskAttachment->name = $name;
             $taskAttachment->save();
+
+
+
 
 
         return response()->json([
