@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
+use App\Models\TaskAttachment;
 
 class Task extends Model
 {
@@ -98,6 +99,32 @@ class Task extends Model
     {
         return $this->priority->priority_text;
     }
+
+    // ==========================================
+    // ATTACHMENTS
+    // ==========================================
+    public function attachments()
+    {
+        return $this->hasMany(TaskAttachment::class);
+    }
+
+    public function addAttachments($attachment)
+    {
+        $path = Storage::putFile('public/tasks/' . $task->id, $attachment);
+            $url = Storage::url($path);
+            $name = $attachment->getClientOriginalName();
+            $taskAttachment = new TaskAttachment();
+            $taskAttachment->task_id = $task->id;
+            $taskAttachment->uploaded_by = Auth::id();
+            $taskAttachment->path = $path;
+            $taskAttachment->url = $url;
+            $taskAttachment->name = $name;
+            $taskAttachment->save();
+
+        $this->attachments()->create($attachment);
+    }
+
+    // attachment_urls
 
     // ===================================================================================
     public function subTasks()

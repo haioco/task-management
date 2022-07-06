@@ -7,7 +7,6 @@ use App\Http\Controllers\api\v1\UserController;
 use Illuminate\Http\Request;
 use App\Models\Project;
 use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes

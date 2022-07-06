@@ -82,6 +82,7 @@ class TaskController extends Controller
             $task->time = $request->time;
             $task->score = $request->score;
             $task->save();
+
             $task->addMembers($request->task_members);
         } catch (\Throwable $th) {
 
@@ -95,7 +96,8 @@ class TaskController extends Controller
         // DB::rollBack();
 
         return response()->json([
-            'message' => 'Task created successfully'
+            'message' => 'Task created successfully',
+            'task' => new TaskResource($task)
         ], 200);
     }
 
@@ -293,13 +295,23 @@ class TaskController extends Controller
     public function uploadFile(Request $request)
     {
 
+        $validator = Validator::make($request->all(), [
+            'task_id' => 'required|integer|exists:tasks,id',
+            'file' => 'required|file|mimes:jpeg,png,jpg,gif,svg|max:2048'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'error' => $validator->errors()->first()
+            ], 422);
+        }
+
         $task = Task::find($request->task_id);
+        $file = $request->file('file');
 
-        foreach ($request->file('files') as $attachment) {
-
-            $path = Storage::putFile('public/tasks/' . $task->id, $attachment);
+            $path = Storage::putFile('public/tasks/' . $task->id, $file);
             $url = Storage::url($path);
-            $name = $attachment->getClientOriginalName();
+            $name = $file->getClientOriginalName();
             $taskAttachment = new TaskAttachment();
             $taskAttachment->task_id = $task->id;
             $taskAttachment->uploaded_by = Auth::id();
@@ -307,7 +319,7 @@ class TaskController extends Controller
             $taskAttachment->url = $url;
             $taskAttachment->name = $name;
             $taskAttachment->save();
-        }
+
 
         return response()->json([
             'status' => 'success',
