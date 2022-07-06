@@ -98,57 +98,59 @@ class ProjectController extends Controller
     // =====================================================================================================
     public function addAttachment(Request $request)
     {
-        // $validator = Validator::make($request->all(), [
-        //     'project_id' => 'required|integer',
+        $validator = Validator::make($request->all(), [
+            'project_id' => 'required|integer|exists:projects,id',
+            
+            'attachment' => 'required|file|mimes:jpeg,png,jpg,gif,svg,pdf,doc,docx,xls,xlsx,ppt,pptx,zip,rar',
+        ]);
 
-        //     'attachment' => 'required|file|mimes:jpeg,png,jpg,gif,svg,pdf,doc,docx,xls,xlsx,ppt,pptx,zip,rar',
-        // ]);
-
-        // if ($validator->fails()) {
-        //     return response()->json([
-        //         'status' => 'error',
-        //         'message' => $validator->errors()
-        //     ], 400);
-        // }
-
-        try {
-
-            $project = Project::findOrFail($request->get('project_id'));
-        } catch (\Throwable $th) {
-
+        if ($validator->fails()) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Project not found'
-            ], 404);
+                'message' => $validator->errors()
+            ], 422);
         }
 
-        $attach_names = [];
+        $project = Project::findOrFail($request->get('project_id'));
 
-        foreach ($request->attachment as $attachment) {
-            try {
-
-                $project->addAttachment($attachment);
-
-                array_push($attach_names, utf8_decode($attachment->getClientOriginalName()));
-            } catch (\Throwable $th) {
-
-                $attachment_name = utf8_decode($attachment->getClientOriginalName());
-
-                return response()->json([
-                    'status' => 'error',
-                    'message' => "failed to store file {$attachment_name}",
-                ], 422);
-            }
-        }
+        $project->addAttachment($request->file('attachment'));
 
         return response()->json([
             'status' => 'success',
-            'message' => 'attachment successfully stored',
-            'data' => $attach_names
+            'message' => 'Attachment added successfully',
+            'project' => $project
         ], 200);
+
+        // --------------------------------------------------------------------------------------------
+
+        // $attach_names = [];
+
+        // foreach ($request->attachment as $attachment) {
+        //     try {
+
+        //         $project->addAttachment($attachment);
+
+        //         array_push($attach_names, utf8_decode($attachment->getClientOriginalName()));
+        //     } catch (\Throwable $th) {
+
+        //         $attachment_name = utf8_decode($attachment->getClientOriginalName());
+
+        //         return response()->json([
+        //             'status' => 'error',
+        //             'message' => "failed to store file {$attachment_name}",
+        //         ], 422);
+        //     }
+        // }
+
+        // return response()->json([
+        //     'status' => 'success',
+        //     'message' => 'attachment successfully stored',
+        //     'data' => $attach_names
+        // ], 200);
+        // --------------------------------------------------------------------------------------------
     }
 
-    
+
 
     // =====================================================================================================
     // GET PROJECT INFO:
