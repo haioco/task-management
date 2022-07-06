@@ -321,6 +321,9 @@ class TaskController extends Controller
             $taskAttachment->save();
 
 
+            
+
+
         return response()->json([
             'status' => 'success',
             'message' => 'File uploaded successfully'
