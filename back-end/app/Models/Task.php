@@ -85,7 +85,7 @@ class Task extends Model
 
     public function changeStatus($status_id)
     {
-        $this->status_id = $status_id;
+        $this->status()->associate($status_id);
         $this->save();
     }
 
@@ -96,6 +96,12 @@ class Task extends Model
     public function priority()
     {
         return $this->belongsTo(Priority::class);
+    }
+
+    public function changePriority($priority_id)
+    {
+        $this->priority()->associate($priority_id);
+        $this->save();
     }
 
     public function getPriorityTextAttribute()
@@ -161,5 +167,11 @@ class Task extends Model
     public function project()
     {
         return $this->belongsTo(Project::class);
+    }
+
+    public function changeProject($project_id)
+    {
+        $this->project()->associate($project_id);
+        $this->save();
     }
 }

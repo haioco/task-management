@@ -268,13 +268,13 @@ class TaskController extends Controller
 
             $task->description = isset($request->description) ? $request->description : $task->description;
 
-            $task->project_id = isset($request->project_id) ? $request->project_id : $task->project_id;
+            isset($request->project_id) ? $task->changeProject($request->project_id) : null;
 
-            $task->parent_task_id = isset($request->parent_task_id) ? $request->parent_task_id : $task->parent_task_id;
+            isset($request->parent_task_id) ? $task->changeParentTask($request->parent_task_id) : null;
 
-            $task->priority_id = isset($request->priority_id) ? $request->priority_id : $task->priority_id;
+            isset($request->priority_id) ? $task->changePriority($request->priority_id) : null;
 
-            $task->status_id = isset($request->status_id) ? $request->status_id : $task->status_id;
+            isset($request->status_id) ? $task->changeStatus($request->status_id) : $task->status_id;
 
             $task->estimated_proficiency = isset($request->estimated_proficiency) ? $request->estimated_proficiency : $task->estimated_proficiency;
 
@@ -291,6 +291,7 @@ class TaskController extends Controller
             $request->reset_members == 1 ? $task->clearMembers() : null;
 
             $request->task_members ? $task->addMembers($request->task_members) : null;
+            
         } catch (\Throwable $th) {
             DB::rollBack();
             return response()->json([
@@ -326,7 +327,7 @@ class TaskController extends Controller
         }
 
         $task = Task::find($request->task_id);
-        
+
         $task->addAttachment($request->file('file'));
 
         return response()->json([
