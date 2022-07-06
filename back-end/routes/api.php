@@ -37,7 +37,7 @@ Route::middleware('auth:api', 'admin.middleware')->group(function () {
     Route::delete('/project', [ProjectController::class, 'delete']);
     Route::put('/project/update', [ProjectController::class, 'update']);
     Route::post('/project/delete', [ProjectController::class, 'deleteProperties']);
-    
+
     // User routes ---------------------------------------------------------------------------------------------------------
     Route::post('/user', [UserController::class, 'store']);
     Route::get('/users', [UserController::class, 'index']);
@@ -65,7 +65,7 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/tasks/attachments', [TaskController::class, 'attachmentsList']);
     Route::delete('/task', [TaskController::class, 'delete']);
     // Route::get('/task/{id}', [TaskController::class, 'info']);
-    Route::put('/task', [TaskController::class, 'update']);
+    Route::post('/task', [TaskController::class, 'update']);
 
     // project routs ------------------------------------------------------
     Route::get('/projects', [ProjectController::class, 'index']);

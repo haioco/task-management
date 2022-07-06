@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9fbc09e1-458e-4c3a-9a38-0a0aab8e669a" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/product-management-back-end" beforeDir="false" afterPath="$PROJECT_DIR$/product-management-back-end" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product-management-back-end/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/product-management-front-end" beforeDir="false" afterPath="$PROJECT_DIR$/product-management-front-end" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product-management-front-end/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/product-management-front-end/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back-end/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/back-end/routes/api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/pages/task/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/pages/task/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/pages/users/profile/[id].tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/pages/users/profile/[id].tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -14,6 +14,14 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="ProjectId" id="2BVsCuu2cB8SaXKsAoh1kHG0rqE" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -26,6 +34,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="ts.external.directory.path" value="C:\Users\Front-dev\Desktop\my project\task-management\front-end\node_modules\typescript\lib" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />

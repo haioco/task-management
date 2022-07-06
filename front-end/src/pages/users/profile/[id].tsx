@@ -68,7 +68,7 @@ const UserProfile = () => {
     setAnchorEl(null)
     toast.loading('در حال بروزرسانی وضعیت فعالیت')
     PrivateRequest()
-      .put(`task/${id}`, {
+      .post(`task/${id}`, {
         status_id: id,
         id: taskId
       })

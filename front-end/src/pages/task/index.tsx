@@ -45,13 +45,13 @@ const Tasks = () => {
       priority_id: priority,
       task_members: converTOarrMembers,
       proficiency: parseInt(proficiency),
-      task_status: taskStatus,
+      status_id: taskStatus,
       description: description
     }
     PrivateRequest().post('/task', dataTask).then((res) => {
       toast.success(' تشک جدید شد')
     }).catch((err) => {
-      toast.error(err.response.data.message)
+      toast.error(err.response.data.error)
       console.log('err submit task', err)
     })
   }
