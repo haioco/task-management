@@ -18,25 +18,11 @@ use stdClass;
 
 class TaskController extends Controller
 {
-    public function index()
-    {
-        $user = Auth::user();
-        if ($user->hasRole('admin')) {
-            $tasks = TaskResource::collection(Task::paginate(15));
-        } else {
-            TaskResource::collection(Task::whereHas('users', function ($q) {
-                $q->where('member_id', Auth::id());
-            })->paginate(15));
-        }
-
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Tasks found',
-            'tasks' => $tasks
-        ], 200);
-    }
 
 
+    // ==========================================
+    // CREATE NEW TASKS
+    // ==========================================
     public function store(Request $request)
     {
 
@@ -47,7 +33,7 @@ class TaskController extends Controller
             'project_id' => 'required|integer|exists:projects,id', #
             'parent_task_id' => 'nullable|integer|exists:tasks,id', #
             'priority_id' => 'required|integer|exists:priorities,id', #
-            'status_id' => 'nullable|integer|exists:statuses,id', #
+            'status_id' => 'required|integer|exists:statuses,id', #
             'estimated_proficiency' => 'nullable|min:0|max:10|integer',
             'proficiency' => 'nullable|min:0|max:10|integer',
             'deadline' => 'nullable|date',
@@ -101,6 +87,29 @@ class TaskController extends Controller
         ], 200);
     }
 
+
+
+    // ==========================================
+    // GET PROJECT DATA
+    // ==========================================
+    public function index()
+    {
+        $user = Auth::user();
+        if ($user->hasRole('admin')) {
+            $tasks = TaskResource::collection(Task::paginate(15));
+        } else {
+            TaskResource::collection(Task::whereHas('users', function ($q) {
+                $q->where('member_id', Auth::id());
+            })->paginate(15));
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Tasks found',
+            'tasks' => $tasks
+        ], 200);
+    }
+
     public function show(Request $request, $task_id)
     {
         $task = Auth::user()->hasRole('admin') ? Task::findOrFail($task_id) : Task::whereHas('users', function ($q) {
@@ -121,6 +130,9 @@ class TaskController extends Controller
         ], 200);
     }
 
+    // ==================================================
+    // ===GET STATUS LIST + ALL TASKS WITH THAT STATUS===
+    // ==================================================
     public function getStatusesTasks()
     {
         $statuses = Status::all();
@@ -155,6 +167,11 @@ class TaskController extends Controller
         ], 200);
     }
 
+
+
+    // ==========================================
+    // DELETE TASK
+    // ==========================================
     public function delete(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -274,7 +291,6 @@ class TaskController extends Controller
             $request->reset_members == 1 ? $task->clearMembers() : null;
 
             $request->task_members ? $task->addMembers($request->task_members) : null;
-            
         } catch (\Throwable $th) {
             DB::rollBack();
             return response()->json([
@@ -291,10 +307,13 @@ class TaskController extends Controller
         ], 200);
     }
 
-    // upload file and attach to task
-    public function uploadFile(Request $request)
-    {
 
+
+    // ==========================================
+    // TASK ATTACHMENTS
+    // ==========================================
+    public function addAttachment(Request $request)
+    {
         $validator = Validator::make($request->all(), [
             'task_id' => 'required|integer|exists:tasks,id',
             'file' => 'required|file|mimes:jpeg,png,jpg,gif,svg|max:2048'
@@ -307,24 +326,48 @@ class TaskController extends Controller
         }
 
         $task = Task::find($request->task_id);
-        $file_attachment = $request->file('file');
-
-            $path = Storage::putFile('public/tasks/' . $task->id, $file_attachment);
-            $url = Storage::url($path);
-            $name = $file_attachment->getClientOriginalName();
-            $taskAttachment = new TaskAttachment();
-            $taskAttachment->task_id = $task->id;
-            $taskAttachment->uploaded_by = Auth::id();
-            $taskAttachment->path = $path;
-            $taskAttachment->url = $url;
-            $taskAttachment->name = $name;
-            $taskAttachment->save();
+        
+        $task->addAttachment($request->file('file'));
 
         return response()->json([
             'status' => 'success',
-            'message' => 'File uploaded successfully'
+            'message' => 'File uploaded successfully',
+            'task' => TaskResource::make($task),
         ], 200);
     }
+
+    public function attachmentsList(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'search' => 'nullable|string',
+            'task_id' => 'nullable|integer|exists:tasks,id'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'error' => $validator->errors()->first()
+            ], 422);
+        }
+
+        if ($request->task_id) {
+            $task = Task::find($request->task_id);
+            $attachments = $task->task_attachments;
+        } else if ($request->search) {
+            $attachments = TaskAttachment::where('title', 'like', '%' . $request->search . '%')->get();
+        } else {
+            $attachments = TaskAttachment::all();
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Attachments list',
+            'attachments' => $attachments
+        ], 200);
+    }
+
+    // ===============================================================================================================================================================
+    // ===============================================================================================================================================================
+    // ===============================================================================================================================================================
 
     public function statusList()
     {

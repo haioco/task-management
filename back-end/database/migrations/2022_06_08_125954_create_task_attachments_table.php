@@ -24,10 +24,10 @@ class CreateTaskAttachmentsTable extends Migration
 
             $table->foreign('uploaded_by')
                 ->references('id')
-                ->on('users')->onDelete('cascade');;
+                ->on('users')->onDelete('cascade');
             $table->foreign('task_id')
                 ->references('id')
-                ->on('tasks')->onDelete('cascade');;
+                ->on('tasks')->onDelete('cascade');
 
             $table->timestamps();
         });

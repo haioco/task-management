@@ -20,7 +20,7 @@ class TaskResource extends JsonResource
 
             'title' => $this->title,
             'description' => $this->description,
-            'attachment_urls' => $this->attachment_urls,
+            'attachment_urls' => $this->getAttachments(),
 
             'project_id' => $this->project_id,
             'project_title' => Project::find($this->project_id)->title,

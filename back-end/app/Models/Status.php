@@ -18,6 +18,10 @@ class Status extends Model
         } catch (\Exception $e) {
             return null;
         }
+    }
 
+    public function tasks()
+    {
+        return $this->hasMany(Task::class);
     }
 }

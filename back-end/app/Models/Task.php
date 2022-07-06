@@ -106,12 +106,12 @@ class Task extends Model
     // ==========================================
     // ATTACHMENTS
     // ==========================================
-    public function attachments()
+    public function task_attachments()
     {
         return $this->hasMany(TaskAttachment::class);
     }
 
-    public function addAttachments($attachment)
+    public function addAttachment($attachment)
     {
 
         DB::beginTransaction();
@@ -120,17 +120,29 @@ class Task extends Model
             $path = Storage::putFile("public/tasks/$this->id", $attachment);
             $url = Storage::url($path);
             $attachment_name = $attachment->getClientOriginalName();
-            $this->attachments()->create([
+            $this->task_attachments()->create([
                 'task_id' => $this->id,
                 'uploaded_by' => Auth::id(),
-                'attachment_url' => $url,
-                'attachment_name' => $attachment_name,
+                'path' => $path,
+                'name' => $attachment_name,
+                'url' => $url,
             ]);
-            
         } catch (\Throwable $th) {
             DB::rollBack();
         }
         DB::commit();
+    }
+
+    public function getAttachments($search = '')
+    {
+        return isset($search) &&  $search != '' ? $this->task_attachments()->where('attachment_name', 'like', "%$search%")->get() : $this->task_attachments()->get();
+    }
+
+    public function removeAtachment($attachment_id)
+    {
+        $attachment = $this->task_attachments()->find($attachment_id);
+        $attachment->delete();
+        Storage::delete($attachment->attachment_url);
     }
 
     // attachment_urls
