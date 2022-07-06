@@ -63,7 +63,7 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/tasks/status', [TaskController::class, 'statusList']);
     Route::get('/tasks/priority', [TaskController::class, 'priorityList']);
     Route::get('/tasks/attachments', [TaskController::class, 'attachmentsList']);
-    Route::delete('/task/delete', [TaskController::class, 'delete']);
+    Route::delete('/task/delete/{id}', [TaskController::class, 'delete']);
     // Route::get('/task/{id}', [TaskController::class, 'info']);
     Route::put('/task/update', [TaskController::class, 'update']);
 
