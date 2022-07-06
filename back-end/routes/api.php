@@ -65,7 +65,7 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/tasks/attachments', [TaskController::class, 'attachmentsList']);
     Route::delete('/task', [TaskController::class, 'delete']);
     // Route::get('/task/{id}', [TaskController::class, 'info']);
-    Route::post('/task', [TaskController::class, 'update']);
+    Route::put('/task', [TaskController::class, 'update']);
 
     // project routs ------------------------------------------------------
     Route::get('/projects', [ProjectController::class, 'index']);
