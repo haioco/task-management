@@ -172,7 +172,7 @@ class TaskController extends Controller
     // ==========================================
     // DELETE TASK
     // ==========================================
-    public function delete(Request $request)
+    public function delete(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
             'task_id' => 'required|integer|exists:tasks,id'
