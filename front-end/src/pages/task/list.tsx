@@ -162,9 +162,11 @@ const TaskList = () => {
                       </Link>
                     </TableCell>
                     <TableCell align='center'>
-                      <IconButton onClick={() => DeleteTask(row.id)} aria-label='delete'>
-                        <EditIcon />
-                      </IconButton>
+                      <Link href={`/task/edit/${row.id}`}>
+                        <IconButton  aria-label='edit'>
+                          <EditIcon />
+                        </IconButton>
+                      </Link>
                     </TableCell>
                     <TableCell align='center'>
                       <IconButton onClick={() => DeleteTask(row.id)} aria-label='delete'>
