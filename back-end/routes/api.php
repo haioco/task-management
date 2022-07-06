@@ -55,7 +55,7 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/user-info', [UserController::class, 'userInfo']);
 
     // task routs ------------------------------------------------------
-    Route::post('/task', [TaskController::class, 'store']);
+    Route::post('/task/store', [TaskController::class, 'store']);
     Route::get('/task/{task_id}', [TaskController::class, 'show']);
     Route::get('/statuses/tasks', [TaskController::class, 'getStatusesTasks']);
     Route::get('/tasks', [TaskController::class, 'index']);
@@ -63,9 +63,9 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/tasks/status', [TaskController::class, 'statusList']);
     Route::get('/tasks/priority', [TaskController::class, 'priorityList']);
     Route::get('/tasks/attachments', [TaskController::class, 'attachmentsList']);
-    Route::delete('/task', [TaskController::class, 'delete']);
+    Route::delete('/task/delete', [TaskController::class, 'delete']);
     // Route::get('/task/{id}', [TaskController::class, 'info']);
-    Route::put('/task', [TaskController::class, 'update']);
+    Route::put('/task/update', [TaskController::class, 'update']);
 
     // project routs ------------------------------------------------------
     Route::get('/projects', [ProjectController::class, 'index']);
