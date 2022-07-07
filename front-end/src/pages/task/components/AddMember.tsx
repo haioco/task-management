@@ -5,7 +5,6 @@ import Checkbox from "@mui/material/Checkbox";
 import TextField from '@mui/material/TextField';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
-import Divider from '@mui/material/Divider';
 import Skeleton from '@mui/material/Skeleton';
 
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
@@ -25,7 +24,7 @@ const AddMember = (props:any) => {
     console.log('members', memmber)
     props.onChange(memmber)
   }, [memmber])
-  
+
 return (
     <div>
       {memmberList ? (

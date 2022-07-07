@@ -23,13 +23,12 @@ const UserProfile = () => {
   const router = useRouter()
   const [user, setuser] = useState<any>()
   const { id } = router.query
-  const [progress, setProgress] = React.useState(25)
   const [value, setValue] = React.useState<number>(2)
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
-  const [tasklist, setTasklist] = useState<any>()
   const [status, setstatus] = useState<any>()
 
   const userWithTask = () => {
+    setValue(2)
     PrivateRequest().get(`/user/${id}`).then((res) => {
       setuser(res.data)
       console.log('res user show ', res.data)
@@ -49,7 +48,7 @@ const UserProfile = () => {
   const DeleteTask = (id: number) => {
     PrivateRequest()
       .delete(`/task/${id}`)
-      .then(res => {
+      .then(() => {
         userWithTask()
       })
       .catch(err => {
@@ -89,7 +88,7 @@ const UserProfile = () => {
   useEffect(() => {
     userWithTask()
     getTaskstatusitem()
-  }, [])
+  }, [user])
 
 
 

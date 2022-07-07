@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import {Button, Grid, TextField, Typography} from "@mui/material";
-import Skeleton from '@mui/material/Skeleton';
 import AppContainer from "../../@core/components/app-container/AppContainer";
 import AddProject from "./components/AddProject";
 import SelectPriority from "./components/SelectPriority";
@@ -19,8 +18,8 @@ const Tasks = () => {
   const [project, setProject] = useState<any>()
   const [priority, setPriority] = useState<any>()
   const [proficiency, setProficiency] = useState<any>()
-  const [proficiencyEstimated, setProficiencyEstimated] = useState<any>()
-  const [level, setLevel] = useState<any>(1)
+  // const [proficiencyEstimated, setProficiencyEstimated] = useState<any>()
+  // const [level, setLevel] = useState<any>(1)
   const [taskStatus, setTaskStatus] = useState<any>()
   const [time, setTime] = useState<any>()
   const [timeEstimated, setTimeEstimated] = useState<any>()
@@ -57,7 +56,7 @@ const Tasks = () => {
       console.log('err submit task', err)
     })
   }
-
+  setTimeEstimated('')
   const handleUpload = (e:React.ChangeEvent<HTMLInputElement>) => {
     const fileList  = e.target.files
     if (!fileList) return

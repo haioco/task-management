@@ -18,8 +18,8 @@ const EidtTask = () => {
   const [project, setProject] = useState<any>()
   const [priority, setPriority] = useState<any>()
   const [proficiency, setProficiency] = useState<any>()
-  const [proficiencyEstimated, setProficiencyEstimated] = useState<any>()
-  const [level, setLevel] = useState<any>(1)
+  // const [proficiencyEstimated, setProficiencyEstimated] = useState<any>()
+  // const [level, setLevel] = useState<any>(1)
   const [taskStatus, setTaskStatus] = useState<any>()
   const [time, setTime] = useState<any>()
   const [timeEstimated, setTimeEstimated] = useState<any>()
@@ -32,6 +32,7 @@ const EidtTask = () => {
   const {id} = router.query
 
   const handleSubmitTask = () => {
+    setTimeEstimated('')
     const converTOarrMembers: any = []
     members && members.length > 0 && members.map((item:any) => {
       converTOarrMembers.push(item.id)
@@ -83,6 +84,12 @@ const EidtTask = () => {
       setTitle(res.data.task.title)
       setProject(res.data.task.project_id)
       setTaskStatus(res.data.task.status_id)
+      setScore(res.data.task.score)
+      setTime(res.data.task.estimated_time)
+      setProficiency(res.data.task.estimated_proficiency)
+      setPriority(res.data.task.priority_id)
+      setDescription(res.data.task.description)
+      console.log('(res.data.task.priority_id', res.data.task.priority_id)
     }).catch((err) => {
       console.log('err', err)
     })
@@ -93,9 +100,9 @@ const EidtTask = () => {
     <div>
       <Grid container>
         <Grid lg={12} item>
-          <AppContainer title={'افزودن فعالیت '}>
+          <AppContainer title={'ویرایش  فعالیت '}>
             <div className={'flex justify-between'}>
-              <Typography className={'mb-5'} variant={'h5'}>افزودن فعالیت جدید</Typography>
+              <Typography className={'mb-5'} variant={'h5'}> ویرایش فعالیت  </Typography>
               <Link href='/task/list'>
                 <Button variant={'text'} className={'mb-5'}> لیست فعالیت ها</Button>
               </Link>
@@ -111,7 +118,7 @@ const EidtTask = () => {
                    <AddProject project={project} onChange={(project:any) => setProject(project)}/>
                  </Grid>
                  <Grid item lg={2}>
-                   <SelectPriority onChange={(project:any) => setPriority(project)}/>
+                   <SelectPriority priority={priority} onChange={(project:any) => setPriority(project)}/>
                  </Grid>
                  <Grid item lg={2}>
                    <TaskStatus status={taskStatus} onChange={(task:any) => setTaskStatus(task)} />
@@ -130,6 +137,7 @@ const EidtTask = () => {
                  <Grid item lg={4}>
                    <TextField
                      fullWidth
+                     defaultValue={score}
                      type={'number'}
                      onChange={(e) => setScore(e.target.value)}
                      name={'project_title'}
@@ -152,6 +160,7 @@ const EidtTask = () => {
                  <Grid item lg={4}>
                    <TextField
                      fullWidth
+                     defaultValue={proficiency}
                      type={'text'}
                      onChange={(e) => setProficiency(e.target.value)}
                      name={'project_title'}
@@ -170,6 +179,7 @@ const EidtTask = () => {
                  </Grid>
                  <Grid item lg={12}>
                    <TextField
+                     defaultValue={description}
                      onChange={(e) => setDescription(e.target.value)}
                      multiline
                      rows={5}

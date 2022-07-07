@@ -6,9 +6,7 @@ import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
 import ListItemText from '@mui/material/ListItemText'
 import ListItemAvatar from '@mui/material/ListItemAvatar'
-import ImageIcon from '@mui/icons-material/Image'
 import WorkIcon from '@mui/icons-material/Work'
-import BeachAccessIcon from '@mui/icons-material/BeachAccess'
 import TableContainer from '@mui/material/TableContainer'
 import Paper from '@mui/material/Paper'
 import Table from '@mui/material/Table'
@@ -26,7 +24,7 @@ import MenuItem from '@mui/material/MenuItem'
 import AccessTimeIcon from '@mui/icons-material/AccessTime'
 import { useRouter } from 'next/router'
 
-const ShowProject = (props: any) => {
+const ShowProject = () => {
   const router = useRouter()
   const { id } = router.query
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
