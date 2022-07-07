@@ -291,6 +291,9 @@ class TaskController extends Controller
             $request->reset_members == 1 ? $task->clearMembers() : null;
 
             $request->task_members ? $task->addMembers($request->task_members) : null;
+
+            $task->save();
+
             
         } catch (\Throwable $th) {
             DB::rollBack();
