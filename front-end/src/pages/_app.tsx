@@ -10,6 +10,7 @@ import {Provider} from 'react-redux'
 
 // ** Loader Import
 import NProgress from 'nprogress'
+import 'react-loading-skeleton/dist/skeleton.css'
 
 // ** Emotion Imports
 import { CacheProvider } from '@emotion/react'

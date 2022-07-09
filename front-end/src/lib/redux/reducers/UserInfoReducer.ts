@@ -7,7 +7,8 @@ const UserInfoReducer = (state = inituinalState, action: any) => {
   switch (action.type) {
     case ADD_INFO:
       console.log('action.payload.userInfo', action.payload)
-      return {...state,userInfo:action.payload}
+      
+return {...state,userInfo:action.payload}
     break
     default:
       return state
