@@ -126,12 +126,12 @@ class TaskController extends Controller
             'status' => 'success',
             'message' => 'Task found',
             // 'test' => 'pedr',
-            'task' => new TaskResource($task)
+            'task' => TaskResource::make($task)
         ], 200);
     }
 
     // ==================================================
-    // ===GET STATUS LIST + ALL TASKS WITH THAT STATUS===
+    // == GET STATUS LIST + ALL TASKS WITH THAT STATUS ==
     // ==================================================
     public function getStatusesTasks()
     {
@@ -343,7 +343,7 @@ class TaskController extends Controller
             ], 422);
         }
 
-        
+        $task->removeAttachment($request->attachment_id);
 
         return response()->json([
             'status' => 'success',

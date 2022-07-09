@@ -9,6 +9,7 @@ use App\Models\TaskAttachment;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use phpDocumentor\Reflection\Types\Self_;
 
 class Task extends Model
 {
@@ -46,11 +47,11 @@ class Task extends Model
         $this->task_members()->detach();
     }
 
-    public function getMembers($withUser=false)
+    public function getMembers($extend=false)
     {
         $members = $this->task_members()->get();
 
-        $withUser ? $members->pluck('name', 'id') : null;
+        $extend ? null : $members->pluck('name', 'id');
 
         return $members;
     }
@@ -68,9 +69,13 @@ class Task extends Model
         $this->task_observers()->detach();
     }
 
-    public function getObservers()
+    public function getObservers($extend=false)
     {
-        return $this->task_observers()->get()->pluck('name', 'id');
+        $observers = $this->task_observers()->get();
+
+        $extend ? null : $observers->pluck('name', 'id');
+
+        return $observers;
     }
 
 
@@ -156,29 +161,36 @@ class Task extends Model
     {
         $attachment = $this->task_attachments()->find($attachment_id);
         $attachment->delete();
-        Storage::delete($attachment->attachment_url);
+        if (Storage::exists($attachment->path)) {
+            Storage::delete($attachment->path);
+        }
     }
 
     // ==========================================
     // SUB TASKS / PARENT TASKS
     // ==========================================
-    public function parent_task()
+    public function parentTask()
     {
-        return $this->belongsTo(Task::class, 'parent_task_id');
+        return Self::find($this->parent_task_id)->first();
+    }
+
+    public function subTasks()
+    {
+        return Self::where('parent_task_id', $this->id)->get();
     }
 
     // attachment_urls
 
     // ===================================================================================
-    public function subTasks()
-    {
-        return $this->hasMany(Task::class, 'parent_task_id');
-    }
+    // public function subTasks()
+    // {
+    //     return $this->hasMany(Task::class, 'parent_task_id');
+    // }
 
-    public function parentTask()
-    {
-        return $this->belongsTo(Task::class, 'parent_task_id');
-    }
+    // public function parentTask()
+    // {
+    //     return $this->belongsTo(Task::class, 'parent_task_id');
+    // }
 
     public function project()
     {
