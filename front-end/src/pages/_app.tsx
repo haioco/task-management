@@ -6,7 +6,7 @@ import Head from 'next/head'
 import { Router } from 'next/router'
 import type { NextPage } from 'next'
 import type { AppProps } from 'next/app'
-
+import {Provider} from 'react-redux'
 
 // ** Loader Import
 import NProgress from 'nprogress'
@@ -60,6 +60,7 @@ import 'react-quill/dist/quill.snow.css'
 
 // ** Global css styles
 import '../../styles/globals.css'
+import {CoreStore} from "../lib/redux/store";
 
 // ** Extend App Props with Emotion
 type ExtendedAppProps = AppProps & {
@@ -126,35 +127,36 @@ const App = (props: ExtendedAppProps) => {
           <meta name='viewport' content='initial-scale=1, width=device-width' />
         </Head>
 
-        <div className={'ir-yekan-reqular'}>
-          <AuthProvider>
-            <SettingsProvider {...(setConfig ? { pageSettings: setConfig() } : {})}>
-              <SettingsConsumer>
-                {({ settings }) => {
-                  return (
-                    <div style={{ fontFamily: 'IranYekanBold' }} className={'ir-yekan-reqular'}>
-                      <ThemeComponent settings={settings}>
-                        <WindowWrapper>
-                          <Guard authGuard={authGuard} guestGuard={guestGuard}>
-                            <AclGuard aclAbilities={aclAbilities} guestGuard={guestGuard}>
-                              {getLayout(
-                                <Component {...pageProps} />
-                              )}
-                            </AclGuard>
-                          </Guard>
-                        </WindowWrapper>
-                        <ReactHotToast>
-                          <Toaster position={'top-center'} toastOptions={{ className: 'react-hot-toast' }} />
-                        </ReactHotToast>
-                      </ThemeComponent>
-                    </div>
-                  )
-                }}
-              </SettingsConsumer>
-            </SettingsProvider>
-          </AuthProvider>
-        </div>
-
+        <Provider store={CoreStore}>
+          <div className={'ir-yekan-reqular'}>
+            <AuthProvider>
+              <SettingsProvider {...(setConfig ? { pageSettings: setConfig() } : {})}>
+                <SettingsConsumer>
+                  {({ settings }) => {
+                    return (
+                      <div style={{ fontFamily: 'IranYekanBold' }} className={'ir-yekan-reqular'}>
+                        <ThemeComponent settings={settings}>
+                          <WindowWrapper>
+                            <Guard authGuard={authGuard} guestGuard={guestGuard}>
+                              <AclGuard aclAbilities={aclAbilities} guestGuard={guestGuard}>
+                                {getLayout(
+                                  <Component {...pageProps} />
+                                )}
+                              </AclGuard>
+                            </Guard>
+                          </WindowWrapper>
+                          <ReactHotToast>
+                            <Toaster position={'top-center'} toastOptions={{ className: 'react-hot-toast' }} />
+                          </ReactHotToast>
+                        </ThemeComponent>
+                      </div>
+                    )
+                  }}
+                </SettingsConsumer>
+              </SettingsProvider>
+            </AuthProvider>
+          </div>
+        </Provider>
       </CacheProvider>
 
   )

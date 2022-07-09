@@ -6,13 +6,20 @@ import Status from './Status'
 import FastAccess from './FastAccess'
 import Tasks from './Tasks'
 import TaskWidget from './TaskWidget'
+import {useSelector} from "react-redux";
+import {RootReducer} from "../../../lib/redux/reducers";
 
 const UserAction = () => {
+  const user_info = useSelector((state:RootReducer) => {
+    return state.UserInfo
+  })
+
+  console.log('user_info thunk', user_info.userInfo)
   return (
     <FadeIn>
       <Typography className={'font-black flex items-center text-gray-400'} variant={'h4'}>
         امروز قصد انجام چه کاری رو داری
-        <p className={'m-3 primary-text-h font-bold'}>هادی</p>
+        <p className={'m-3 primary-text-h font-bold'}>{user_info.userInfo.full_name}</p>
         عزیز؟
       </Typography>
       <br />

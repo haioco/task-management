@@ -29,10 +29,10 @@ const EidtTask = () => {
   const [file, setFile] = useState<string | Blob>()
 
   const router = useRouter()
+  // setTimeEstimated('')
   const {id} = router.query
 
   const handleSubmitTask = () => {
-    setTimeEstimated('')
     const converTOarrMembers: any = []
     members && members.length > 0 && members.map((item:any) => {
       converTOarrMembers.push(item.id)
@@ -86,7 +86,7 @@ const EidtTask = () => {
       setTaskStatus(res.data.task.status_id)
       setScore(res.data.task.score)
       setTime(res.data.task.estimated_time)
-      setProficiency(res.data.task.estimated_proficiency)
+      setProficiency(res.data.task.proficiency)
       setPriority(res.data.task.priority_id)
       setDescription(res.data.task.description)
       console.log('(res.data.task.priority_id', res.data.task.priority_id)
@@ -108,7 +108,7 @@ const EidtTask = () => {
               </Link>
             </div>
             <br />
-            {title && title.length > 0 ? (
+            {title ? (
              <>
                <Grid container item spacing={5}>
                  <Grid item lg={3} >
@@ -207,7 +207,6 @@ const EidtTask = () => {
                </div>
              </>
             ): 'loading'}
-
           </AppContainer>
         </Grid>
       </Grid>
@@ -215,5 +214,4 @@ const EidtTask = () => {
     </div>
   );
 };
-
-  export default EidtTask;
+export default EidtTask;
