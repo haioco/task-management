@@ -18,6 +18,7 @@ import IconButton from "@mui/material/IconButton";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import DeleteIcon from "@mui/icons-material/Delete";
 import {toast} from "react-hot-toast";
+import ChangeTaskStatus from "../../../@core/components/tasks/ChangeTaskStatus";
 
 const UserProfile = () => {
   const router = useRouter()
@@ -46,8 +47,9 @@ const UserProfile = () => {
   }
 
   const DeleteTask = (id: number) => {
+    console.log('task id de', id)
     PrivateRequest()
-      .delete(`/task/${id}`)
+      .delete(`/task/delete/${id}`)
       .then(() => {
         userWithTask()
       })
@@ -88,7 +90,7 @@ const UserProfile = () => {
   useEffect(() => {
     userWithTask()
     getTaskstatusitem()
-  }, [user])
+  }, [])
 
 
 
@@ -167,33 +169,7 @@ const UserProfile = () => {
                       </TableCell>
                       <TableCell align='center'>{row.priority_text}</TableCell>
                       <TableCell align='center'>
-                        <Button
-                          id='basic-button'
-                          key={row.id}
-                          aria-controls={open ? 'basic-menu' : undefined}
-                          aria-haspopup='true'
-                          aria-expanded={open ? 'true' : undefined}
-                          onClick={handleClick}
-                        >
-                          <p className={'text-yellow-500 font-bold'}>{row.status_text}</p>
-                        </Button>
-                        <Menu
-                          id='basic-menu'
-                          anchorEl={anchorEl}
-                          open={open}
-                          onClose={handleClose}
-                          MenuListProps={{
-                            'aria-labelledby': 'basic-button'
-                          }}
-                        >
-                          {status
-                            ? status.map((status_item: any, index: number) => (
-                              <MenuItem key={index} onClick={() => handleUpdateTaskStatus(status_item.id, row.id)}>
-                                {status_item.status_text}
-                              </MenuItem>
-                            ))
-                            : 'loading'}
-                        </Menu>
+                        <ChangeTaskStatus onChange={() => userWithTask()} key={row.id} status_text={row.status_text} id={row.id} />
                       </TableCell>
                       <TableCell align='center'>
                         <Link href={`/task/show/${row.id}`}>

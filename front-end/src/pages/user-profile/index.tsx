@@ -2,8 +2,13 @@ import React from 'react';
 import {Box, Button, Card, Container, Divider, Grid, Typography} from "@mui/material";
 import {FiChevronLeft, FiPlus} from "react-icons/fi";
 import Avatar from "@mui/material/Avatar";
+import {useSelector} from "react-redux";
+import {RootReducer} from "../../lib/redux/reducers";
+import TaskList from "../task/list";
 
 const UserProfile = () => {
+  const user_info = useSelector((state:RootReducer) => state.UserInfo.userInfo)
+
   return (
     <div>
       <Grid container spacing={5}>
@@ -106,9 +111,6 @@ const UserProfile = () => {
                 <FiChevronLeft />
               </div>
             </Box>
-            <br />
-            <br />
-            <br />
             <Box className={'mt-5 flex justify-center'}>
               <Button style={{ height: 60 }} className={'blue-grad-btn w-10/12'} variant={'contained'}>
                 <FiPlus className={'ml-5'} size={25}/>
@@ -129,16 +131,17 @@ const UserProfile = () => {
                 src='/images/avatars/1.png'
               />
               <div className={'mr-5 flex justify-center flex-col'}>
-                <span className={'ir-yekan-bold font-bold'}>   بیژن سعیدی</span>
-                <span className={'font-light'}>مدیریت محصول</span>
+                <span className={'ir-yekan-bold font-bold'}>{user_info.full_name}</span>
+                <span className={'font-light'}> {user_info.role}</span>
               </div>
             </div>
             <div  className={'mr-5 flex text-left flex-col'}>
-              <span className={'ir-yekan-bold font-bold'}> H.Safarzadeh@haio.ir </span>
+              <span className={'ir-yekan-bold font-bold'}> {user_info.email} </span>
               <span className={'font-light'}> 09053200107</span>
             </div>
           </Box>
           <Divider className={'mt-5'}/>
+          <TaskList />
         </Grid>
       </Grid>
     </div>

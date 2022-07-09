@@ -29,6 +29,9 @@ import { useAuth } from 'src/hooks/useAuth'
 
 // ** Type Imports
 import { Settings } from 'src/@core/context/settingsContext'
+import {useSelector} from "react-redux";
+import {RootReducer} from "../../lib/redux/reducers";
+import Link from "next/link";
 
 interface Props {
   settings: Settings
@@ -46,6 +49,7 @@ const BadgeContentSpan = styled('span')(({ theme }) => ({
 const UserDropdown = (props: Props) => {
   // ** Props
   const { settings } = props
+  const user_info = useSelector((state:RootReducer) => state.UserInfo.userInfo)
 
   // ** States
   const [anchorEl, setAnchorEl] = useState<Element | null>(null)
@@ -145,21 +149,21 @@ const UserDropdown = (props: Props) => {
                  flexDirection: 'column'
                }}
              >
-               <Typography sx={{ fontWeight: 600 }}> سعید بیژنی</Typography>
+               <Typography sx={{ fontWeight: 600 }}>  {user_info.full_name}</Typography>
                <Typography
                  variant='body2'
                  sx={{ fontSize: '0.8rem', color: 'text.disabled' }}
                >
-                 مدیر
+                 {user_info.role}
                </Typography>
              </Box>
            </Box>
          </Box>
          <Divider sx={{ mt: 0, mb: 1 }} />
-         <MenuItem sx={{ p: 0 }} onClick={() => handleDropdownClose()}>
+         <MenuItem sx={{ p: 0 }} onClick={() => handleDropdownClose('/user-profile')}>
            <Box sx={styles}>
-             <AccountOutline sx={{ marginRight: 2 }} />
-             حساب کاربری
+               <AccountOutline sx={{ marginRight: 2 }} />
+               حساب کاربری
            </Box>
          </MenuItem>
          <MenuItem sx={{ p: 0 }} onClick={() => handleDropdownClose()}>
@@ -206,8 +210,8 @@ const UserDropdown = (props: Props) => {
          </MenuItem>
        </Menu>
        <div className={'flex flex-col ml-2 mr-4 items-start'}>
-         <Typography className={'ir-yekan-black'}>بیژن سعیدی</Typography>
-         <span className={'font-light text-sm'}>مدیر سیستم</span>
+         <Typography className={'ir-yekan-black'}>{user_info.full_name} </Typography>
+         <span className={'font-light text-sm'}> {user_info.role}</span>
        </div>
        <KeyboardArrowDownIcon />
      </div>

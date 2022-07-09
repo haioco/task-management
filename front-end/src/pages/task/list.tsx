@@ -16,6 +16,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import Link from 'next/link'
 import { toast } from 'react-hot-toast'
 import ChangeTaskStatus from 'src/@core/components/tasks/ChangeTaskStatus'
+import Skeleton from 'react-loading-skeleton'
 
 const TaskList = () => {
   const [tasklist, setTasklist] = useState<any>()
@@ -103,10 +104,11 @@ const TaskList = () => {
                       </IconButton>
                     </TableCell>
                   </TableRow>
-                ))}
+                )) }
             </TableBody>
           </Table>
         </TableContainer>
+        {!tasklist && <Skeleton className={'w-full'} height={120} />}
       </AppContainer>
     </div>
   )
