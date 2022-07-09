@@ -6,6 +6,7 @@ use App\Http\Controllers\api\v1\UserController;
 // use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use App\Models\Project;
+use App\Models\Task;
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
@@ -61,11 +62,10 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/tasks', [TaskController::class, 'index']);
     Route::post('/task/file/upload', [TaskController::class, 'addAttachment']);
     Route::post('/task/file/delete', [TaskController::class, 'removeAttachment']);
+    Route::get('/tasks/attachments', [TaskController::class, 'attachmentsList']);
     Route::get('/tasks/status', [TaskController::class, 'statusList']);
     Route::get('/tasks/priority', [TaskController::class, 'priorityList']);
-    Route::get('/tasks/attachments', [TaskController::class, 'attachmentsList']);
     Route::delete('/task/delete/{id}', [TaskController::class, 'delete']);
-    // Route::get('/task/{id}', [TaskController::class, 'info']);
     Route::put('/task/update', [TaskController::class, 'update']);
 
     // project routs ------------------------------------------------------
@@ -74,4 +74,5 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/project/members', [ProjectController::class, 'members']);
     Route::get('/project/observers', [ProjectController::class, 'observers']);
     Route::get('/project/{id}', [ProjectController::class, 'info']);
+    Route::get('/test', [Task::class, 'parent_task']);
 });

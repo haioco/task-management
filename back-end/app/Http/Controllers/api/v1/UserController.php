@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\UserResource;
+use App\Models\Project;
+use App\Models\Task;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
@@ -74,22 +77,41 @@ class UserController extends Controller
         //     'password' => Hash::make($request->password)
         // ]);
 
+        DB::beginTransaction();
+
         $user = new User();
 
         $user->name = $request->name;
 
         $user->last_name = $request->last_name;
 
-        //$user->mobile = $request->mobile;
-
         $user->email = $request->email;
+
+        $user->mobile = $request->mobile;
 
         $user->password = Hash::make($request->password);
 
-        $user->save();
+        try {
+            $user->save();
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return response()->json([
+                'status' => 'error',
+                'error' => 'Error saving user'
+            ], 500);
+        }
 
         $user->assignRole(Role::whereName($request->role)->first());
 
+        foreach ($request->tasks as $task) {
+            Task::find($task)->addMembers([$user]);
+        }
+
+        foreach ($request->projects as $project) {
+            Project::find($project)->addMembers([$user]);
+        }
+        
+        DB::commit();
         return response()->json([
             'status' => 'success',
             'message' => 'User created successfully',
