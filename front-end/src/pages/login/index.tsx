@@ -5,7 +5,6 @@ import { useState, ReactNode, MouseEvent } from 'react'
 import Link from 'next/link'
 
 // ** MUI Components
-import Alert from '@mui/material/Alert'
 import MuiLink from '@mui/material/Link'
 import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
@@ -23,6 +22,7 @@ import InputAdornment from '@mui/material/InputAdornment'
 import Typography, { TypographyProps } from '@mui/material/Typography'
 import MuiFormControlLabel, { FormControlLabelProps } from '@mui/material/FormControlLabel'
 
+
 // ** Icons Imports
 import Google from 'mdi-material-ui/Google'
 import Github from 'mdi-material-ui/Github'
@@ -38,7 +38,6 @@ import { yupResolver } from '@hookform/resolvers/yup'
 
 // ** Hooks
 import { useAuth } from 'src/hooks/useAuth'
-import useBgColor from 'src/@core/hooks/useBgColor'
 import { useSettings } from 'src/@core/hooks/useSettings'
 
 // ** Configs
@@ -121,7 +120,7 @@ const LoginPage = () => {
   // ** Hooks
   const auth = useAuth()
   const theme = useTheme()
-  const bgClasses = useBgColor()
+  // const bgClasses = useBgColor()
   const { settings } = useSettings()
   const hidden = useMediaQuery(theme.breakpoints.down('md'))
 
@@ -130,7 +129,6 @@ const LoginPage = () => {
 
   const {
     control,
-    setError,
     handleSubmit,
     formState: { errors }
   } = useForm({

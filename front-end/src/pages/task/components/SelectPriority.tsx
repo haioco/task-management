@@ -5,9 +5,9 @@ import InputLabel from "@mui/material/InputLabel";
 import Select, {SelectChangeEvent} from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 
-const SelectPriority = (props:any) => {
+const SelectPriority = (props?:any) => {
   const [priorityList, setPriorityList] = useState<any>()
-  const [priority, setPriority] = useState<any>()
+  const [priority, setPriority] = useState<any>(props.priority)
 
   const handleChange = (event: SelectChangeEvent) => {
     setPriority(event.target.value);

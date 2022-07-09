@@ -37,7 +37,7 @@ Route::middleware('auth:api', 'admin.middleware')->group(function () {
     Route::delete('/project', [ProjectController::class, 'delete']);
     Route::put('/project/update', [ProjectController::class, 'update']);
     Route::post('/project/delete', [ProjectController::class, 'deleteProperties']);
-    
+
     // User routes ---------------------------------------------------------------------------------------------------------
     Route::post('/user', [UserController::class, 'store']);
     Route::get('/users', [UserController::class, 'index']);

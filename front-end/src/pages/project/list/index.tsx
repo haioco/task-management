@@ -14,15 +14,13 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import Link from "next/link";
 import PrivateRequest from "../../../@core/api/PrivateRequest";
 import Avatar from '@mui/material/Avatar';
-import {Skeleton} from "@mui/lab";
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box'
 
 
 
 
-const ProjectList = (props:any) => {
-  const {projects} = props
+const ProjectList = () => {
   const [projectList, setProkectList] = useState<any>()
   const getProjects = () => {
     PrivateRequest().get('/projects').then((res) => {
@@ -86,7 +84,7 @@ const ProjectList = (props:any) => {
                   <TableCell align="center">{row.calories}</TableCell>
                   <TableCell align="center">{row.fat}</TableCell>
                   <TableCell align="center">{row.members.map((item:any, index:number) => (
-                    <Avatar>{item.name.split('')[0]}</Avatar>
+                    <Avatar key={index}>{item.name.split('')[0]}</Avatar>
                   ))}</TableCell>
                   <TableCell align="center">
                     <Link href={`/project/show/${row.id}`}>

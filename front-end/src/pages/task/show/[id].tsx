@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import PrivateRequest from '../../../@core/api/PrivateRequest'
-import { Button, Divider, Grid, LinearProgress, Typography } from '@mui/material'
+import { Button, Grid, LinearProgress, Typography } from '@mui/material'
 import Avatar from '@mui/material/Avatar'
 import Rating from '@mui/material/Rating'
 import { useRouter } from 'next/router'
@@ -13,6 +13,8 @@ const ShowTask = () => {
   const [progress, setProgress] = React.useState(25)
 
   const showTask = () => {
+    setValue(2)
+    setProgress(25)
     PrivateRequest()
       .get(`/task/${id}`)
       .then(res => {

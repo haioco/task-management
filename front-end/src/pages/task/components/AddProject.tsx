@@ -6,8 +6,8 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import PrivateRequest from "../../../@core/api/PrivateRequest";
 
 
-const AddProject = (props:any) => {
-  const [project, setProjects] = React.useState<any>();
+const AddProject = (props?:any) => {
+  const [project, setProjects] = React.useState<any>(props.project);
   const [proojectlist, setProojectlist] = React.useState<any>();
 
 
