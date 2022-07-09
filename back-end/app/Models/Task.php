@@ -46,9 +46,13 @@ class Task extends Model
         $this->task_members()->detach();
     }
 
-    public function getMembers()
+    public function getMembers($withUser=false)
     {
-        return $this->task_members()->get()->pluck('name', 'id');
+        $members = $this->task_members()->get();
+
+        $withUser ? $members->pluck('name', 'id') : null;
+
+        return $members;
     }
 
     // ==========================================
@@ -148,11 +152,19 @@ class Task extends Model
         return isset($search) &&  $search != '' ? $this->task_attachments()->where('attachment_name', 'like', "%$search%")->get() : $this->task_attachments()->get();
     }
 
-    public function removeAtachment($attachment_id)
+    public function removeAttachment($attachment_id)
     {
         $attachment = $this->task_attachments()->find($attachment_id);
         $attachment->delete();
         Storage::delete($attachment->attachment_url);
+    }
+
+    // ==========================================
+    // SUB TASKS / PARENT TASKS
+    // ==========================================
+    public function parent_task()
+    {
+        return $this->belongsTo(Task::class, 'parent_task_id');
     }
 
     // attachment_urls

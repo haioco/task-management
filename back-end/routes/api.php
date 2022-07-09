@@ -60,6 +60,7 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/statuses/tasks', [TaskController::class, 'getStatusesTasks']);
     Route::get('/tasks', [TaskController::class, 'index']);
     Route::post('/task/file/upload', [TaskController::class, 'addAttachment']);
+    Route::post('/task/file/delete', [TaskController::class, 'removeAttachment']);
     Route::get('/tasks/status', [TaskController::class, 'statusList']);
     Route::get('/tasks/priority', [TaskController::class, 'priorityList']);
     Route::get('/tasks/attachments', [TaskController::class, 'attachmentsList']);
