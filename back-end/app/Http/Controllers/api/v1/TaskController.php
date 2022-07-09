@@ -174,19 +174,9 @@ class TaskController extends Controller
     // ==========================================
     public function delete(Request $request, $id)
     {
-        $validator = Validator::make($request->all(), [
-            'task_id' => 'required|integer|exists:tasks,id'
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json([
-                'error' => $validator->errors()->first()
-            ], 422);
-        }
-
-        $task = Auth::user()->hasRole('admin') ? Task::find($request->task_id) : Task::whereHas('users', function ($q) {
+        $task = Auth::user()->hasRole('admin') ? Task::find($id) : Task::whereHas('users', function ($q) {
             $q->where('member_id', Auth::id());
-        })->find($request->task_id);
+        })->find($id);
 
         if (!$task) {
             return response()->json([
@@ -198,37 +188,8 @@ class TaskController extends Controller
 
         return response()->json([
             'message' => 'Task deleted successfully',
-            'task_id' => $request->task_id
+            'task_id' => $id
         ], 200);
-
-        // $user = Auth::user();
-
-        // if ($user->hasRole('admin')) {
-
-        //     $task = Task::find($request->id);
-        //     $task->delete();
-        //     return response()->json([
-        //         'message' => 'Task deleted successfully'
-        //     ], 200);
-        // } else {
-        //     try {
-        //         $task = Task::where('id', $request->id)->whereHas('users', function ($q) {
-        //             $q->where('member_id', Auth::id());
-        //         })->first();
-
-        //         $task->delete();
-
-        //         return response()->json([
-        //             'status' => 'success',
-        //             'message' => 'Task deleted successfully'
-        //         ], 200);
-        //     } catch (\Exception $e) {
-        //         return response()->json([
-        //             'status' => 'error',
-        //             'message' => 'Task not found'
-        //         ], 404);
-        //     }
-        // }
     }
 
     public function update(Request $request)
@@ -366,6 +327,27 @@ class TaskController extends Controller
             'status' => 'success',
             'message' => 'Attachments list',
             'attachments' => $attachments
+        ], 200);
+    }
+
+    public function removeAttachment(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'id' => 'required|integer|exists:tasks,id',
+            'attachment_id' => 'required|integer|exists:task_attachments,id'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'error' => $validator->errors()->first()
+            ], 422);
+        }
+
+        
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Attachment deleted successfully'
         ], 200);
     }
 
