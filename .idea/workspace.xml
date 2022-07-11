@@ -2,18 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9fbc09e1-458e-4c3a-9a38-0a0aab8e669a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/front-end/src/lib/redux/actions/UserInfoAction.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/front-end/src/lib/redux/reducers/UserInfoReducer.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/front-end/src/lib/redux/states/UserState.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/front-end/src/lib/redux/store/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/front-end/src/lib/redux/types/UserActionType.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front-end/src/@core/components/tasks/SubTask.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front-end/src/@core/components/tasks/SubTaskList.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front-end/src/@core/components/dashboard-main/UserAction.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/@core/components/dashboard-main/UserAction.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front-end/src/context/AuthContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/context/AuthContext.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/lib/redux/reducers/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/lib/redux/reducers/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/pages/_app.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/pages/_app.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/pages/task/edit/[id].tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/pages/task/edit/[id].tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/pages/users/profile/[id].tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/pages/users/profile/[id].tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/pages/task/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/pages/task/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/pages/task/show/[id].tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/pages/task/show/[id].tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,9 +18,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="TypeScript JSX File" />
         <option value="JavaScript File" />
         <option value="TypeScript File" />
+        <option value="TypeScript JSX File" />
       </list>
     </option>
   </component>
@@ -48,6 +43,10 @@
             <RecentBranchesForRepo>
               <option name="branches">
                 <list>
+                  <RecentBranch>
+                    <option name="branchName" value="redux" />
+                    <option name="lastUsedInstant" value="1657362613" />
+                  </RecentBranch>
                   <RecentBranch>
                     <option name="branchName" value="edittask" />
                     <option name="lastUsedInstant" value="1657126216" />
@@ -85,9 +84,9 @@
       <recent name="C:\Users\Front-dev\Desktop\my project\task-management\front-end\src\lib\redux\states" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Front-dev\Desktop\my project\task-management\front-end\src\@core\components\tasks" />
       <recent name="C:\Users\Front-dev\Desktop\my project\task-management\front-end\src\lib" />
       <recent name="C:\Users\Front-dev\Desktop\my project\task-management\front-end\src\@core" />
-      <recent name="C:\Users\Front-dev\Desktop\my project\task-management\front-end\src\@core\components\tasks" />
     </key>
   </component>
   <component name="RunManager">
@@ -118,7 +117,9 @@
       <workItem from="1657002485013" duration="1070000" />
       <workItem from="1657175272240" duration="3795000" />
       <workItem from="1657179628917" duration="12536000" />
-      <workItem from="1657341262328" duration="13239000" />
+      <workItem from="1657341262328" duration="19430000" />
+      <workItem from="1657513287293" duration="7757000" />
+      <workItem from="1657528615389" duration="3617000" />
     </task>
     <servers />
   </component>

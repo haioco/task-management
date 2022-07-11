@@ -11,7 +11,6 @@ import {RootReducer} from "../../../lib/redux/reducers";
 
 const UserAction = () => {
   const user_info = useSelector((state:RootReducer) => state.UserInfo.userInfo)
-
   return (
     <FadeIn>
       <Typography className={'font-black flex items-center text-gray-400'} variant={'h4'}>
