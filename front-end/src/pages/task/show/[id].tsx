@@ -4,6 +4,7 @@ import { Button, Grid, LinearProgress, Typography } from '@mui/material'
 import Avatar from '@mui/material/Avatar'
 import Rating from '@mui/material/Rating'
 import { useRouter } from 'next/router'
+import SubTask from "../../../@core/components/tasks/SubTask";
 
 const ShowTask = () => {
   const [task, setTask] = React.useState<any>()
@@ -24,6 +25,7 @@ const ShowTask = () => {
         console.log('err users', err)
       })
   }
+
 
   useEffect(() => {
     showTask()
@@ -76,13 +78,7 @@ const ShowTask = () => {
               </div>
             </div>
           </Grid>
-          <Grid className={'bg-white shadow-lg text-center p-5'} item lg={12}>
-            <hr />
-            <div className='mt-5'>این فعالیت هیچ زیر کاری ندارد میتوانید هم اکنون اضافه کنید</div>
-            <Button size='large' className='bg-black mt-5 text-center text-white'>
-              افرودن زیر تسک جدید
-            </Button>
-          </Grid>
+          <SubTask task_name={task.title} id={id} />
         </Grid>
       ) : (
         <div></div>

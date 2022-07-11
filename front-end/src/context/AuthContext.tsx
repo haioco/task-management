@@ -109,6 +109,7 @@ const AuthProvider = ({ children }: Props) => {
 
        // console.log('res data user role', res.data.user.role)
        setUser({ ...res.data.user })
+       console.log('...res.data.user', res.data.user)
        dispatch(USER_INFO(res.data.user))
        const returnUrl = router.query.returnUrl
        const redirectURL = returnUrl && returnUrl !== '/' ? returnUrl : '/'

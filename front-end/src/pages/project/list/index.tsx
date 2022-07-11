@@ -42,7 +42,7 @@ const ProjectList = () => {
 
   useEffect(() => {
     getProjects()
-  }, [projectList])
+  }, [])
 
   return (
     <div>

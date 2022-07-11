@@ -13,7 +13,7 @@ import DescriptionIcon from '@mui/icons-material/Description';
 import Link from "next/link";
 
 
-const Tasks = () => {
+const Tasks = ({parent_id, parent_name} : {parent_id?: number | string , parent_name?: string}) => {
   const [title, setTitle] = useState<any>()
   const [project, setProject] = useState<any>()
   const [priority, setPriority] = useState<any>()
@@ -39,6 +39,7 @@ const Tasks = () => {
       title: title,
       score: score,
       time: time,
+      parent_task_id: parent_id ? parent_id : null,
       time_estimated: timeEstimated,
       project_id: project,
       priority_id: priority,
@@ -49,14 +50,13 @@ const Tasks = () => {
     }
     PrivateRequest().post('/task/store', dataTask).then((res) => {
       if (res.status === 200) {
-        toast.success('تسک جدید ایجاد شد   ')
+        toast.success('فعالیت جدید ایجاد شد   ')
       }
     }).catch((err) => {
       toast.error(err.response.data.error)
       console.log('err submit task', err)
     })
   }
-  setTimeEstimated('')
   const handleUpload = (e:React.ChangeEvent<HTMLInputElement>) => {
     const fileList  = e.target.files
     if (!fileList) return
@@ -83,7 +83,10 @@ const Tasks = () => {
         <Grid lg={12} item>
           <AppContainer title={'افزودن فعالیت '}>
             <div className={'flex justify-between'}>
-              <Typography className={'mb-5'} variant={'h5'}>افزودن فعالیت جدید</Typography>
+              <Typography className={'mb-5'} variant={'h5'}> افزودن فعالیت جدید
+                {parent_name && ' برای  ' + parent_name + ' '}
+                {parent_id && ' ' + parent_id + ' '}
+              </Typography>
 
               <Link href='/task/list'>
                 <Button variant={'text'} className={'mb-5'}> لیست فعالیت ها</Button>
