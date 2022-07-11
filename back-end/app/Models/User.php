@@ -73,7 +73,34 @@ class User extends Authenticatable
 
     public function getUserTasks()
     {
-        return TaskResource::collection($this->tasks);
+        // return TaskResource::collection($this->tasks);
+
+        $task = $this->tasks()->get();
+
+        return collect($task)->map(function ($task) {
+            return collect($task)->only([
+                'id',
+                'title',
+                'description',
+                'attachment_urls',
+                'project_id',
+                'project_title',
+                'parent_task_id',
+                'priority_id',
+                'priority_text',
+                'status_id',
+                'status_text',
+                'estimated_proficiency',
+                'proficiency',
+                'estimated_time',
+                'start_at',
+                'end_at',
+                'deadline',
+                'score',
+                'created_at',
+                'updated_at',
+            ]);
+        });
     }
 
     public function tasksObserving()
@@ -103,5 +130,18 @@ class User extends Authenticatable
     {
         $this->position_id = $position_id;
         $this->save();
+    }
+
+    // ==========================================
+    // SCORE
+    // ==========================================
+    public function score()
+    {
+        return $this->belongsTo(Score::class);
+    }
+
+    public function getScore()
+    {
+        return $this->score->score_text;
     }
 }
