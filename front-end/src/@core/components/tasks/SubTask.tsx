@@ -44,7 +44,7 @@ const SubTask = ({id, task_name} : {id: any, task_name:string}) => {
   return (
       <Grid className={'bg-white shadow-lg text-center p-5'} item lg={12}>
         <hr />
-        {taskChildren && taskChildren.length < 0 ? (
+        {taskChildren && taskChildren.length <= 0 ? (
           <div>
             <div className='mt-5'>این فعالیت هیچ زیر کاری ندارد میتوانید هم اکنون اضافه کنید</div>
             <Button onClick={handleOpen} size='large' className='bg-black mt-5 text-center text-white'>

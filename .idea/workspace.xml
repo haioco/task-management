@@ -2,13 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9fbc09e1-458e-4c3a-9a38-0a0aab8e669a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/front-end/src/@core/components/tasks/SubTask.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/front-end/src/@core/components/tasks/SubTaskList.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front-end/src/pages/project/edit/[id].tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/@core/components/dashboard-main/UserAction.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/@core/components/dashboard-main/UserAction.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/context/AuthContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/context/AuthContext.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/pages/task/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/pages/task/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/pages/task/show/[id].tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/pages/task/show/[id].tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/.env" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/@core/api/AppUrl.ts" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/@core/api/AppUrl.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/@core/components/tasks/SubTask.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/@core/components/tasks/SubTask.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/pages/project/list/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/pages/project/list/index.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,6 +42,10 @@
             <RecentBranchesForRepo>
               <option name="branches">
                 <list>
+                  <RecentBranch>
+                    <option name="branchName" value="substask" />
+                    <option name="lastUsedInstant" value="1657535476" />
+                  </RecentBranch>
                   <RecentBranch>
                     <option name="branchName" value="redux" />
                     <option name="lastUsedInstant" value="1657362613" />
@@ -119,7 +122,7 @@
       <workItem from="1657179628917" duration="12536000" />
       <workItem from="1657341262328" duration="19430000" />
       <workItem from="1657513287293" duration="7757000" />
-      <workItem from="1657528615389" duration="3617000" />
+      <workItem from="1657528615389" duration="9988000" />
     </task>
     <servers />
   </component>
