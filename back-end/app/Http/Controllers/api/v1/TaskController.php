@@ -110,6 +110,45 @@ class TaskController extends Controller
         ], 200);
     }
 
+    // ==========================================
+    // SUB / PARENT TASKS
+    // ==========================================
+    public function getParent(Request $request, $id)
+    {
+        $task = Task::find($id);
+        if (!$task) {
+            return response()->json([
+                'error' => 'Task not found'
+            ], 404);
+        }
+
+        $task = TaskResource::make($task->parentTask());
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Parent task found',
+            'task' => $task
+        ], 200);
+    }
+
+    public function getChild(Request $request, $id)
+    {
+        $task = Task::find($id);
+        if (!$task) {
+            return response()->json([
+                'error' => 'Task not found'
+            ], 404);
+        }
+
+        $tasks = TaskResource::collection($task->subTasks());
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Sub_tasks found',
+            'tasks' => $tasks
+        ], 200);
+    }
+
     public function show(Request $request, $task_id)
     {
         $task = Auth::user()->hasRole('admin') ? Task::findOrFail($task_id) : Task::whereHas('users', function ($q) {
@@ -235,7 +274,20 @@ class TaskController extends Controller
 
             isset($request->priority_id) ? $task->changePriority($request->priority_id) : null;
 
-            isset($request->status_id) ? $task->changeStatus($request->status_id) : $task->status_id;
+            // isset($request->status_id) ? $task->changeStatus($request->status_id) : $task->status_id;
+
+            if (isset($request->status_id)) {
+                if ($request->status_id == 8) {
+                    if (Auth::user()->hasRole('admin') || Auth::user()->id == $task->project->supervisor()) {
+                        $task->changeStatus($request->status_id);
+                    } else {
+                        return response()->json([
+                            'error' => 'You are not allowed to change the status to "Done"'
+                        ], 403);
+                    }
+                }
+                $task->changeStatus($request->status_id);
+            }
 
             $task->estimated_proficiency = isset($request->estimated_proficiency) ? $request->estimated_proficiency : $task->estimated_proficiency;
 
@@ -254,8 +306,6 @@ class TaskController extends Controller
             $request->task_members ? $task->addMembers($request->task_members) : null;
 
             $task->save();
-
-            
         } catch (\Throwable $th) {
             DB::rollBack();
             return response()->json([

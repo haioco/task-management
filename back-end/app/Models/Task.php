@@ -47,7 +47,7 @@ class Task extends Model
         $this->task_members()->detach();
     }
 
-    public function getMembers($extend=false)
+    public function getMembers($extend = false)
     {
         $members = $this->task_members()->get();
 
@@ -69,7 +69,7 @@ class Task extends Model
         $this->task_observers()->detach();
     }
 
-    public function getObservers($extend=false)
+    public function getObservers($extend = false)
     {
         $observers = $this->task_observers()->get();
 
@@ -94,12 +94,21 @@ class Task extends Model
 
     public function changeStatus($status_id)
     {
+        DB::beginTransaction();
         if ($status_id == 8) {
-            
+            $members = $this->getMembers(false);
+            $members->each(function ($member) {
+                Score::create([
+                    'user_id' => $member->id,
+                    'task_id' => $this->id,
+                    'score' => $this->score,
+                ]);
+            });
         }
 
         $this->status()->associate($status_id);
         $this->save();
+        DB::commit();
     }
 
 

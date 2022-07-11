@@ -68,6 +68,8 @@ Route::middleware('auth:api')->group(function () {
     Route::delete('/task/delete/{id}', [TaskController::class, 'delete']);
     Route::put('/task/update', [TaskController::class, 'update']);
 
+    Route::get('/task/{id}/children', [TaskController::class, 'getChild']);
+
     // project routs ------------------------------------------------------
     Route::get('/projects', [ProjectController::class, 'index']);
     Route::post('/project/addattachment', [ProjectController::class, 'addAttachment']);

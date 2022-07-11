@@ -24,18 +24,19 @@ class UserController extends Controller
         try {
             if ($user) {
                 if (Hash::check($request->password, $user->password)) {
-                    return response()->json([
-                        'status' => 'success',
-                        'message' => 'Login successful',
-                        'user' => [
-                            'id' => $user->id,
-                            'name' => $user->name,
-                            'email' => $user->email,
-                            'role' => $user->getRoleNames()[0],
-                        ],
-                        'token_type' => 'Bearer',
-                        'access_token' => $user->createToken('Token')->accessToken,
-                    ], 200);
+                    // return response()->json([
+                    //     'status' => 'success',
+                    //     'message' => 'Login successful',
+                    //     'user' => [
+                    //         'id' => $user->id,
+                    //         'name' => $user->name,
+                    //         'email' => $user->email,
+                    //         'role' => $user->getRoleNames()[0],
+                    //     ],
+                    //     'token_type' => 'Bearer',
+                    //     'access_token' => $user->createToken('Token')->accessToken,
+                    // ], 200);
+                    return UserResource::make($user);
                 } else {
                     throw new \Exception();
                 }
@@ -110,7 +111,7 @@ class UserController extends Controller
         foreach ($request->projects as $project) {
             Project::find($project)->addMembers([$user]);
         }
-        
+
         DB::commit();
         return response()->json([
             'status' => 'success',
