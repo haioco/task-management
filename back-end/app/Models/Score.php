@@ -29,8 +29,8 @@ class Score extends Model
     // ==========================================
     // SCORE
     // ==========================================
-    public function score()
+    public function scores()
     {
-        return $this->task->score;
+        return
     }
 }

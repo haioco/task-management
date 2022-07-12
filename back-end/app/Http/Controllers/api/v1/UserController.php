@@ -36,7 +36,9 @@ class UserController extends Controller
                     //     'token_type' => 'Bearer',
                     //     'access_token' => $user->createToken('Token')->accessToken,
                     // ], 200);
-                    return UserResource::make($user);
+                    $data = UserResource::make($user);
+                    $data->additional(['token_type' => 'Bearer', 'access_token' => $user->createToken('Token')->accessToken]);
+                    return $data;
                 } else {
                     throw new \Exception();
                 }

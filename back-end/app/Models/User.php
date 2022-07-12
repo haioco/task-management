@@ -142,6 +142,6 @@ class User extends Authenticatable
 
     public function getScore()
     {
-        return $this->score->score_text;
+        return $this->score->userScore($this->id);
     }
 }
