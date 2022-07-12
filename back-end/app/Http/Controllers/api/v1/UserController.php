@@ -60,7 +60,7 @@ class UserController extends Controller
             'last_name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'mobile' => 'required|string|max:255',
-            'password' => 'required|string|min:6|confirmed',
+            'password' => 'required|string|min:6',
             'role' => 'required|string|exists:roles,name',
             'tasks' => 'nullable|array',
             'projects' => 'nullable|array',
@@ -129,16 +129,36 @@ class UserController extends Controller
 
     public function update(Request $request, $id)
     {
-        $user = User::find($request->id);
-        if ($request->name && !empty($request->name)) {
-            $user->name = $request->name;
+        $validator = Validator::make($request->all(), [
+            'id' => 'required|integer|exists:users,id',
+            'name' => 'nullable|string|max:255',
+            'last_name' => 'nullable|string|max:255',
+            'email' => 'nullable|string|email|max:255|unique:users',
+            'mobile' => 'nullable|string|max:11|min:11',
+            'password' => 'nullable|string|min:6',
+            'role' => 'nullable|string|exists:roles,name',
+            'tasks' => 'nullable|array',
+            'projects' => 'nullable|array',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $validator->errors()->first()
+            ], 422);
         }
-        if ($request->last_name && !empty($request->last_name)) {
-            $user->last_name = $request->last_name;
-        }
-        if ($request->email && !empty($request->email)) {
-            $user->email = $request->email;
-        }
+
+        $user = User::find($id);
+
+        $user->name = isset($user->name) ? $request->name : $user->name;
+
+        $user->last_name = isset($user->last_name) ? $request->last_name : $user->last_name;
+
+        $user->email = isset($user->email) ? $request->email : $user->email;
+
+        $user->mobile = isset($user->mobile) ? $request->mobile : $user->mobile;
+
+        $user->password = isset($user->password) ? Hash::make($request->password) : $user->password;
 
         if ($request->role && !empty($request->role)) {
 
@@ -149,23 +169,42 @@ class UserController extends Controller
             $user->assignRole($role);
         }
 
+        if (!empty($request->tasks)) {
+            foreach ($request->tasks as $task) {
+                Task::find($task)->addMembers([$id]);
+            }
+        }
+
+        if (!empty($request->projects)) {
+            foreach ($request->projects as $project) {
+                Project::find($project)->addMember($id);
+            }
+        }
+
         $user->save();
+
+        // $user = User::find($request->id);
+        // if ($request->name && !empty($request->name)) {
+        //     $user->name = $request->name;
+        // }
+        // if ($request->last_name && !empty($request->last_name)) {
+        //     $user->last_name = $request->last_name;
+        // }
+        // if ($request->email && !empty($request->email)) {
+        //     $user->email = $request->email;
+        // }
+
+        // $user->save();
 
         return response()->json([
             'status' => 'success',
             'message' => 'User updated successfully',
-            'user' => [
-                'id' => $user->id,
-                'name' => $user->name,
-                'email' => $user->email,
-                'role' => $user->getRoleNames(),
-            ],
+            'user' => UserResource::make($user),
         ], 200);
     }
 
     public function changePassword(Request $request, $id)
     { {
-
             $user = User::find($id);
             if (
                 $request->current_password && !empty($request->current_password) && $request->new_password &&
@@ -207,9 +246,8 @@ class UserController extends Controller
 
     public function userInfo()
     {
-
         $user = User::where('id', Auth::id())->get();
-        $data = UserResource::collection($user);
+        $data = UserResource::make($user);
 
         return response()->json([
             'status' => 'success',
@@ -221,7 +259,6 @@ class UserController extends Controller
 
     public function index(Request $request)
     {
-
 
         if ($request->user_id != null) {
             $users = User::where('id', '!=', 1)
