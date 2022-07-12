@@ -105,12 +105,12 @@ const AuthProvider = ({ children }: Props) => {
        console.log('auth accessToken', res.data.access_token)
        await Cookies.set('accessToken', res.data.access_token)
        await window.localStorage.setItem('accessToken', res.data.access_token)
-       await window.localStorage.setItem('userData', JSON.stringify(res.data.user))
+       await window.localStorage.setItem('userData', JSON.stringify(res.data.data))
 
        // console.log('res data user role', res.data.user.role)
-       setUser({ ...res.data.user })
-       console.log('...res.data.user', res.data.user)
-       dispatch(USER_INFO(res.data.user))
+       setUser({ ...res.data.data })
+       console.log('...res.data.user', res.data)
+       dispatch(USER_INFO(res.data.data))
        const returnUrl = router.query.returnUrl
        const redirectURL = returnUrl && returnUrl !== '/' ? returnUrl : '/'
        router.replace(redirectURL as string)
