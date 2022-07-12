@@ -43,7 +43,7 @@ const navigation = (): VerticalNavItemsType => {
       children: [
         {
           title: 'کاربر جدید',
-          path: '/'
+          path: '/users/create'
         },
         {
           title: ' لیست کاربران',
