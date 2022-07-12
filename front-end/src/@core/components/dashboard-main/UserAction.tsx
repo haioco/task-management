@@ -19,7 +19,7 @@ const UserAction = () => {
         عزیز؟
       </Typography>
       <br />
-      <Grid container className={'mb-5'} spacing={5}>
+      <Grid container dir={'rtl'} className={'mb-5'} spacing={5}>
         <Grid item lg={4}>
           <TaskWidget />
         </Grid>
@@ -29,8 +29,8 @@ const UserAction = () => {
         <Grid item lg={4}>
           <Status />
         </Grid>
+        <Tasks />
       </Grid>
-      <Tasks />
       <br />
       <Memos />
       <br />

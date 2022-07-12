@@ -17,7 +17,7 @@ import NotStartedTask from "./TaskItem/NotStartedTask";
 const Tasks = () => {
   return (
       <>
-        <Grid item md={12} lg={12}>
+        <Grid dir={'rtl'} className={'right'} item lg={12}>
           <Card className={'bg-[#e4e8f3]'}>
           <CardContent>
             <CompletedTask />

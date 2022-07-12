@@ -2,12 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9fbc09e1-458e-4c3a-9a38-0a0aab8e669a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/front-end/src/pages/users/create/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front-end/.env" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front-end/src/@core/api/AppUrl.ts" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/@core/api/AppUrl.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/context/AuthContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/context/AuthContext.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/navigation/vertical/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/navigation/vertical/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/@core/components/dashboard-main/Tasks.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/@core/components/dashboard-main/Tasks.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/@core/components/dashboard-main/UserAction.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/@core/components/dashboard-main/UserAction.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/pages/users/create/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/pages/users/create/index.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
