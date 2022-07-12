@@ -107,12 +107,16 @@ class UserController extends Controller
 
         $user->assignRole(Role::whereName($request->role)->first());
 
-        foreach ($request->tasks as $task) {
-            Task::find($task)->addMembers([$user]);
+        if (isset($request->tasks)) {
+            foreach ($request->tasks as $task) {
+                Task::find($task)->addMembers([$user]);
+            }
         }
 
-        foreach ($request->projects as $project) {
-            Project::find($project)->addMembers([$user]);
+        if (isset($request->projects)) {
+            foreach ($request->projects as $project) {
+                Project::find($project)->addMembers([$user]);
+            }
         }
 
         DB::commit();
