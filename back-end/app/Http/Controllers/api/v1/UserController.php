@@ -98,6 +98,7 @@ class UserController extends Controller
             $user->save();
         } catch (\Throwable $th) {
             DB::rollBack();
+            dd($th);
             return response()->json([
                 'status' => 'error',
                 'error' => 'Error saving user'
