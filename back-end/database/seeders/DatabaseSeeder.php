@@ -96,8 +96,6 @@ class DatabaseSeeder extends Seeder
         $project1->members()->attach($user);
         $project1->observers()->attach($userObserver);
 
-
-
         $task = Task::create([
             'title' => 'اولین تسک',
             'description' => 'لازم است در این تسک شما این تسک رو انجام بدید',
