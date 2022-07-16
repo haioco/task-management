@@ -21,34 +21,22 @@ class UserController extends Controller
     {
         $user = User::where('email', $request->email)->first();
 
-        try {
-            if ($user) {
-                if (Hash::check($request->password, $user->password)) {
-                    // return response()->json([
-                    //     'status' => 'success',
-                    //     'message' => 'Login successful',
-                    //     'user' => [
-                    //         'id' => $user->id,
-                    //         'name' => $user->name,
-                    //         'email' => $user->email,
-                    //         'role' => $user->getRoleNames()[0],
-                    //     ],
-                    //     'token_type' => 'Bearer',
-                    //     'access_token' => $user->createToken('Token')->accessToken,
-                    // ], 200);
-                    $data = UserResource::make($user);
-                    $data->additional(['token_type' => 'Bearer', 'access_token' => $user->createToken('Token')->accessToken]);
-                    return $data;
-                } else {
-                    throw new \Exception();
-                }
-            } else {
-                throw new \Exception();
-            }
-        } catch (\Exception $e) {
+        if (!$user) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Invalid email password combination'
+                'error' => 'User not found'
+            ], 404);
+        }
+
+        if (Hash::check($request->password, $user->password)) {
+            $data = UserResource::make($user);
+            $data->additional(['token_type' => 'Bearer', 'access_token' => $user->createToken('Token')->accessToken]);
+            return $data;
+
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'error' => 'email password combination is invalid'
             ], 401);
         }
     }
