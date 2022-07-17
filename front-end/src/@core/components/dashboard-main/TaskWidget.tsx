@@ -26,13 +26,18 @@ const TaskWidget = () => {
           <Box className={'bg-[#ffb800] p-1 rounded-lg'}>
             <Typography>فعالیت های من</Typography>
           </Box>
-          <Box>مشاهده همه</Box>
+          <Box>
+            <Link href={'/task/list/'}>
+              مشاهده همه
+            </Link>
+          </Box>
         </Box>
         <Divider />
         {tasklist ? (
           tasklist.slice(0, 5).map((item: any, index: any) => (
             <>
-              <Box className={'m-4 cursor-pointer  flex justify-between items-center h-6/12'} key={index}>
+            <Link href={`/task/show/${item.id}`} key={index}>
+            <Box className={'m-4 cursor-pointer  flex justify-between items-center h-6/12'} >
                 <div>
                   <Box>
                     <Typography className={'ir-yekan-black text-black'}>{item.title}</Typography>
@@ -42,11 +47,10 @@ const TaskWidget = () => {
                   </Box>
                 </div>
                 <div style={{ borderRadius: '50%' }} className={'bg-blue-200 p-1'}>
-                  <Link href={`/task/show/${item.id}`}>
                     <FiChevronLeft />
-                  </Link>
                 </div>
               </Box>
+            </Link>
               <Divider />
             </>
           ))

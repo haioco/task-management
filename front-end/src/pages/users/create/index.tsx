@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
 import AppContainer from "../../../@core/components/app-container/AppContainer";
-import {Button, Grid, TextField} from "@mui/material";
+import {Button, Grid, InputLabel, MenuItem, Select, TextField} from "@mui/material";
 import PrivateRequest from "../../../@core/api/PrivateRequest";
 import {toast} from "react-hot-toast";
 import {useRouter} from "next/router";
+import {SelectChangeEvent} from "@mui/material/Select";
 
 const AddUser = () => {
   const [name, setName] = useState<string>('')
@@ -11,10 +12,12 @@ const AddUser = () => {
   const [email, setEmail] = useState<string>('')
   const [mobile, setMobile] = useState<string>('')
   const [password, setPassword] = useState<string>('')
-  const [role, setRole] = useState<string>('')
+  const [role, setRole] = useState<string>('admin')
 
   const router = useRouter()
-
+  const handleChange = (event: SelectChangeEvent) => {
+    setRole(event.target.value);
+  };
   const SubmitUser = () => {
     const data = {
       name,
@@ -31,6 +34,7 @@ const AddUser = () => {
         router.push('/users')
       }
     }).catch((err) => {
+      toast.error(err.response.data.message)
       console.log('err', err)
     })
   }
@@ -80,14 +84,26 @@ const AddUser = () => {
             />
           </Grid>
           <Grid item lg={3}>
-            <TextField
-              fullWidth
-              onChange={(e) => setRole(e.target.value)}
-              name={'name'}
-              id="filled-basic"
-              label=" نقش "
+            {/*<InputLabel id="demo-simple-select-filled-label">Age</InputLabel>*/}
+            <Select
               variant="filled"
-            />
+              labelId="demo-simple-select-filled-label"
+              id="demo-simple-select-filled"
+              value={role}
+              className={'w-full'}
+              onChange={handleChange}
+            >
+              <MenuItem value={'admin'}>admin</MenuItem>
+              <MenuItem value={'employer'}>employer</MenuItem>
+            </Select>
+            {/*<TextField*/}
+            {/*  fullWidth*/}
+            {/*  onChange={(e) => setRole(e.target.value)}*/}
+            {/*  name={'name'}*/}
+            {/*  id="filled-basic"*/}
+            {/*  label=" نقش "*/}
+            {/*  variant="filled"*/}
+            {/*/>*/}
           </Grid>
           <Grid item lg={3}>
             <TextField
