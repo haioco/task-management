@@ -32,7 +32,6 @@ class UserController extends Controller
             $data = UserResource::make($user);
             $data->additional(['token_type' => 'Bearer', 'access_token' => $user->createToken('Token')->accessToken]);
             return $data;
-
         } else {
             return response()->json([
                 'status' => 'error',
@@ -239,13 +238,10 @@ class UserController extends Controller
 
     public function userInfo()
     {
-        $user = User::where('id', Auth::id())->get();
-        $data = UserResource::make($user);
-
         return response()->json([
             'status' => 'success',
-            'message' => 'User found successfully',
-            'user' => $data
+            'message' => 'User data successfully retrieved',
+            'user' => UserResource::make(Auth::user())
         ], 200);
     }
 
