@@ -58,11 +58,11 @@ const AuthProvider = ({ children }: Props) => {
       if (storedToken) {
         setLoading(true)
         await PrivateRequest().get('user-info').then(async (res) => {
-          console.log('user-info', res.data.user[0])
+          console.log('user-info', res.data.user)
           setLoading(false)
 
-          dispatch(USER_INFO(res.data.user[0]))
-          setUser({ ...res.data.user[0]})
+          dispatch(USER_INFO(res.data.user))
+          setUser({ ...res.data.user})
         }).catch((err) => {
           toast.error('خطا در احراز هویت')
           localStorage.removeItem('userData')
