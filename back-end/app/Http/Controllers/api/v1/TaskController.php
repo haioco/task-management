@@ -235,7 +235,7 @@ class TaskController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'id' => 'required|integer|exists:tasks,id',
-            'title' => 'nullable|string',
+            'title' => 'nullable|string|unique:tasks',
             'description' => 'nullable|string',
             'project_id' => 'nullable|integer|exists:projects,id',
             'parent_task_id' => 'nullable|integer|exists:tasks,id',
