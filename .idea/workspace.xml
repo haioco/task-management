@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9fbc09e1-458e-4c3a-9a38-0a0aab8e669a" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/context/AuthContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/context/AuthContext.tsx" afterDir="false" />
-    </list>
+    <list default="true" id="9fbc09e1-458e-4c3a-9a38-0a0aab8e669a" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -39,6 +36,10 @@
               <option name="branches">
                 <list>
                   <RecentBranch>
+                    <option name="branchName" value="userInfo" />
+                    <option name="lastUsedInstant" value="1658053561" />
+                  </RecentBranch>
+                  <RecentBranch>
                     <option name="branchName" value="readme" />
                     <option name="lastUsedInstant" value="1658051936" />
                   </RecentBranch>
@@ -53,10 +54,6 @@
                   <RecentBranch>
                     <option name="branchName" value="edittask" />
                     <option name="lastUsedInstant" value="1657126216" />
-                  </RecentBranch>
-                  <RecentBranch>
-                    <option name="branchName" value="frontend" />
-                    <option name="lastUsedInstant" value="1657126215" />
                   </RecentBranch>
                 </list>
               </option>
@@ -123,7 +120,7 @@
       <workItem from="1657341262328" duration="19430000" />
       <workItem from="1657513287293" duration="7757000" />
       <workItem from="1657528615389" duration="9988000" />
-      <workItem from="1658031783309" duration="3454000" />
+      <workItem from="1658031783309" duration="3767000" />
     </task>
     <servers />
   </component>
