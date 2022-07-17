@@ -39,6 +39,7 @@ const EidtTask = () => {
     })
 
     const dataTask  = {
+      id,
       title: title,
       score: score,
       time: time,
@@ -50,9 +51,9 @@ const EidtTask = () => {
       status_id: taskStatus,
       description: description
     }
-    PrivateRequest().post('/task/store', dataTask).then((res) => {
+    PrivateRequest().put(`/task/update/`, dataTask).then((res) => {
       if (res.status === 200) {
-        toast.success('تسک جدید ایجاد شد   ')
+        toast.success('   بروزرسانی فعالیت انجام شد    ')
       }
     }).catch((err) => {
       toast.error(err.response.data.error)
