@@ -15,7 +15,7 @@ const TextEditorBox = (props:any) => {
 
   return (
     <div dir={'rtl'}>
-      <Quilly placeholder={'توضیحات پروژه'} theme="snow" value={description}  onChange={setDescription} />
+      <Quilly defaultValue={props.description} placeholder={'توضیحات پروژه'} theme="snow" value={description}  onChange={setDescription} />
     </div>
   );
 };

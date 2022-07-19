@@ -57,7 +57,8 @@ const Project = (props:any) => {
       members: converTOarrMembers,
       observers: converTOarrObservers,
       description: description,
-      advantages: features,
+      advantages: [features],
+      department_id: '1'
     }
     setLoading(true)
     PrivateRequest().post('/project', data).then(() => {

@@ -17,9 +17,6 @@ import Avatar from '@mui/material/Avatar';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box'
 
-
-
-
 const ProjectList = () => {
   const [projectList, setProkectList] = useState<any>()
   const getProjects = () => {

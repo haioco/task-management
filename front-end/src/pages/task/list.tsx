@@ -17,23 +17,21 @@ import Link from 'next/link'
 import { toast } from 'react-hot-toast'
 import ChangeTaskStatus from 'src/@core/components/tasks/ChangeTaskStatus'
 import Skeleton from 'react-loading-skeleton'
+import {Avatar} from '@mui/material'
+import Tooltip from '@mui/material/Tooltip';
+
 
 const TaskList = () => {
   const [tasklist, setTasklist] = useState<any>()
 
   const getTasks = () => {
-    PrivateRequest()
-      .get('/tasks')
-      .then(res => {
-        setTasklist(res.data.tasks)
-      })
-      .catch(err => {
-        console.log('err lis task', err)
-      })
+    PrivateRequest().get('/tasks')
+      .then(res => {setTasklist(res.data.tasks)}).catch(err => {console.log('err lis task', err)})
   }
 
   useEffect(() => {
     getTasks()
+    console.log('tasklist', tasklist)
   }, [])
 
   /// handle transactios
@@ -42,15 +40,12 @@ const TaskList = () => {
       .delete(`/task/delete/${id}`)
       .then(res => {
         toast.success('این فعالیت حذف شد')
-        console.log('res del', res)
         getTasks()
       })
-      .catch(err => {
-        toast.error('این فعالیت حذف نشد')
+      .catch(err => {toast.error('این فعالیت حذف نشد')
         console.log('err', err)
       })
   }
-
 
   return (
     <div>
@@ -61,6 +56,7 @@ const TaskList = () => {
               <TableRow>
                 <TableCell>عنوان پروژه</TableCell>
                 <TableCell align='center'>پروژه </TableCell>
+                <TableCell align='center'>کاربران </TableCell>
                 <TableCell align='center'>درصد انجام</TableCell>
                 <TableCell align='center'>اولویت </TableCell>
                 <TableCell align='center'>وضعیت</TableCell>
@@ -74,9 +70,14 @@ const TaskList = () => {
                 tasklist.map((row: any, index: number) => (
                   <TableRow hover key={index} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                     <TableCell component='th' scope='row'>
-                      {row.title} {row.id}
+                      {row.title}
                     </TableCell>
                     <TableCell align='center'>{row.project_id}</TableCell>
+                    <TableCell className={'flex'} align='center'>{row.task_members.map((item: any, index: number) => (
+                      <Tooltip title={item.name} key={index}>
+                        <Avatar sx={{ width: 30, height: 30 }} className={'m-1'}>{item.name.split('')[0]}</Avatar>
+                      </Tooltip>
+                    ))}</TableCell>
                     <TableCell align='center'>
                       <LinearProgress value={50} />
                     </TableCell>

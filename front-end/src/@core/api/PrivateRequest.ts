@@ -8,7 +8,7 @@ import toast from 'react-hot-toast'
 const getToken = () => 'Bearer ' + Cookies.get('accessToken')
 const isServer = () => typeof window === 'undefined'
 
-console.log('gettoken', getToken())
+// console.log('gettoken', getToken())
 
 const PrivateRequest = (ctx?: any) => {
   if (ctx) {

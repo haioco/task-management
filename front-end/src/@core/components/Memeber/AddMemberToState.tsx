@@ -10,10 +10,10 @@ import Skeleton from '@mui/material/Skeleton';
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
-const AddMember = (props:any) => {
+const AddMemberToState = (props:any) => {
   const [memmberList, setMemberList] = useState<any>()
   const [memmber, setMember] = useState<any>()
-  const [defaultMembers,setDfaultMembers] = useState<any>(props.taskMembers)
+  const [defaultMembers,setDfaultMembers] = useState<any>(props.users)
 
   useEffect(() => {
     PrivateRequest().get('/users').then((res) => {
@@ -26,7 +26,8 @@ const AddMember = (props:any) => {
     props.onChange(memmber)
   }, [memmber])
 
-return (
+// @ts-ignore
+  return (
     <div>
       {memmberList ? (
         <Autocomplete
@@ -49,7 +50,7 @@ return (
             </li>
           )}
           renderInput={(params) => (
-            <TextField variant="filled" {...params} label="انتخاب اعضای پروژه " placeholder="اعضای  پروژه را انتخاب کنید" />
+            <TextField variant="filled" {...params} label{...props.label ? props.label : 'انتخاب اعضا'} placeholder={...props.placeholder ? props.placeholder : 'انتخاب اعضا'} />
           )}
         />
       ): (
@@ -59,4 +60,4 @@ return (
   );
 };
 
-export default AddMember;
+export default AddMemberToState;

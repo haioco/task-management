@@ -19,26 +19,24 @@ const EditProkect = (props:any) => {
   const router = useRouter()
   const {id} = router.query
   const [project, setProject] = useState<any>()
+  const [importance, setimportance] = React.useState('1');
+  const [observers, setObservers] = useState<any>()
+  const [members, setMembers] = useState<any>()
+  const [description, setDescription] = useState<any>()
+  const [features, setfeatures] = useState<any>()
+  const [title, setTitle] = useState<any>()
+  const [Loading, setLoading] = useState<boolean>(false)
+  const [usres, setUser] = useState<any>()
+  const [taskpriofities, setTaskpriofities] = useState<any>()
+  const [owner, setOwner] = useState<any>()
 
-    const [importance, setimportance] = React.useState('1');
-    const [observers, setObservers] = useState<any>()
-    const [members, setMembers] = useState<any>()
-    const [description, setDescription] = useState<any>()
-    const [features, setfeatures] = useState<any>()
-    const [owner, setOwner] = useState<any>()
-    const [title, setTitle] = useState<any>()
-    const [Loading, setLoading] = useState<boolean>(false)
+    // const usres = Users.users.data
+  const tasks =  taskpriofities
 
-    const {Users, taskpriofities} = props
-    const usres = Users.users.data
-    const tasks =  taskpriofities
+  const handleChangeDescription = (event:any) => {setDescription(event)};
+  const handleChangeFeatures = (event:any) => { setfeatures(event)};
 
-    const handleChangeDescription = (event:any) => {
-      setDescription(event)
-    };
-    const handleChangeFeatures = (event:any) => { setfeatures(event)};
-
-    const handleSubmit = () => {
+  const handleSubmit = () => {
       const converTOarrObservers: any = []
       const converTOarrMembers: any = []
 
@@ -68,19 +66,22 @@ const EditProkect = (props:any) => {
         console.log('err create', err.response.data.message)
       })
     }
-    const getTask = () => {
-      PrivateRequest()
-        .get(`/project/${id}`)
-        .then(res => {
-          console.log('res.data.data', res.data.data)
-          setProject(res.data.data)
-        })
-        .catch(err => {
-          console.log('err users', err)
-        })
-    }
+
+  const getUser = () => {PrivateRequest().get('/users').then((res) => {setUser(res.data.users.data)}).catch((err) => { console.log('err') })}
+  const getTaskPriodity = () => {PrivateRequest().get('/tasks/priority').then((res) => {setTaskpriofities(res.data.tasks)}).catch((err) => {console.log('err', err)})}
+
   useEffect(() => {
-    getTask()
+    PrivateRequest().get(`/project/${id}`).then((res) => {
+        console.log('res.data.data', res.data.data)
+        setProject(res.data.data)
+        setTitle(res.data.data.title)
+        setOwner(res.data.data.supervisor)
+        setOwner(res.data.data.supervisor)
+        setDescription(res.data.data.description)
+        console.log('res.data.data.supervisor', res.data.data.supervisor)
+      }).catch(err => {console.log('err users', err)})
+    getUser()
+    getTaskPriodity()
   }, [])
 
   return (
@@ -90,92 +91,75 @@ const EditProkect = (props:any) => {
           <AppContainer title={'ویرایش  پروژه '}>
             <Typography className={'mb-5'} variant={'h5'}>افزودن پروژه جدید</Typography>
             <br />
-            <Grid container item spacing={5}>
-              <Grid item lg={4} >
-                <TextField fullWidth onChange={(e) => setTitle(e.target.value)} name={'project_title'}  id="filled-basic" label="عنوان پروژه" variant="filled" />
-              </Grid>
-              <Grid item lg={4} >
-                <AddProjectOwner
-                  userslist={usres}
-                  onChange={(owner:any) => setOwner(owner)}
-                />
-              </Grid>
-              <Grid item lg={4} >
-                <FormControl variant="filled" className={'w-full'}>
-                  <InputLabel id="demo-simple-select-filled-label">اهمیت پروژه</InputLabel>
-                  <Select
-                    labelId="demo-simple-select-filled-label"
-                    id="demo-simple-select-filled"
-                    value={importance}
-                    onChange={(event, value:any) => setimportance(value.props.value)}
-                  >
-                    {tasks.map((item:any, index:number) => (
-                      <MenuItem key={index} value={item.id}>{item.priority_text}</MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-              </Grid>
-              <Grid item lg={6}>
-                <AddUserInput
-                  userslist={usres}
-                  onChange={(members:any) => setMembers(members)}
-                />
-              </Grid>
-              <Grid item lg={6}>
-                <AddObserverInput
-                  onChange={(observers:any) => setObservers(observers)}
-                  userslist={usres}
-                />
-              </Grid>
-              <Grid item lg={6}>
-                <TextEditorBox
-                  onChange={handleChangeDescription}
-                />
-              </Grid>
-              <Grid item lg={6}>
-                <FeatureEditorBox
-                  onChange={handleChangeFeatures}
-                />
-              </Grid>
-              <Grid item lg={12}>
-                <FileUploadProject />
-              </Grid>
-            </Grid>
-            <div className={'m-2 flex justify-end'}>
-              <Button className={'bg-black text-white'}>ویرایش پروژه</Button>
-            </div>
+            {owner ? 'set'  : 'not set'}
+            {title ? (
+              <>
+                <Grid container item spacing={5}>
+                  <Grid item lg={4} >
+                    <TextField defaultValue={title} fullWidth onChange={(e) => setTitle(e.target.value)} name={'project_title'}  id="filled-basic" label="عنوان پروژه" variant="filled" />
+                  </Grid>
+                  <Grid item lg={4} >
+                    <AddProjectOwner
+                      defaultOwners={owner}
+                      userslist={usres}
+                      onChange={(owner:any) => setOwner(owner)}
+                    />
+                  </Grid>
+                  <Grid item lg={4} >
+                    <FormControl variant="filled" className={'w-full'}>
+                      <InputLabel id="demo-simple-select-filled-label">اهمیت پروژه</InputLabel>
+                      <Select
+                        labelId="demo-simple-select-filled-label"
+                        id="demo-simple-select-filled"
+                        value={importance}
+                        onChange={(event, value:any) => setimportance(value.props.value)}
+                      >
+                        {tasks?.map((item:any, index:number) => (
+                          <MenuItem key={index} value={item.id}>{item.priority_text}</MenuItem>
+                        ))}
+                      </Select>
+                    </FormControl>
+                  </Grid>
+                  <Grid item lg={6}>
+                    <AddUserInput
+                      userslist={usres}
+                      onChange={(members:any) => setMembers(members)}
+                    />
+                  </Grid>
+                  <Grid item lg={6}>
+                    <AddObserverInput
+                      onChange={(observers:any) => setObservers(observers)}
+                      userslist={usres}
+                    />
+                  </Grid>
+
+                  <Grid item lg={6}>
+                    <TextEditorBox
+                      description={description}
+                      onChange={handleChangeDescription}
+                    />
+                  </Grid>
+                  <Grid item lg={6}>
+                    <FeatureEditorBox
+                      onChange={handleChangeFeatures}
+                    />
+                  </Grid>
+                  <Grid item lg={12}>
+                    <FileUploadProject />
+                  </Grid>
+                </Grid>
+                <div className={'m-2 flex justify-end'}>
+                  <Button className={'bg-black text-white'}>ویرایش پروژه</Button>
+                </div>
+              </>
+            ): (
+              'loading ...'
+            )}
           </AppContainer>
         </Grid>
       </Grid>
     </div>
   );
-}
-
-export const getServerSideProps = async (ctx:any) => {
-
-  const Users = await PrivateRequest(ctx).get('/users').then((res) => { return res.data}).catch((err) => {console.log('err users', err)})
-  const taskStatus = await PrivateRequest(ctx).get('/tasks/status').then((res) => { return res.data}).catch((err) => {console.log('err taskstatus', err)})
-  const taskpriofities = await PrivateRequest(ctx).get('/tasks/priority').then((res) => { return res.data.tasks}).catch((err) => {console.log('err taskstatus', err)})
-  const project_list = await PrivateRequest(ctx).get('/projects').then((res) => { return res.data}).catch((err) => {console.log('err taskstatus', err)})
-
-
-  if (!Users && !taskStatus && !taskpriofities && !project_list) {
-    return {
-      redirect: {
-        destination: '/login',
-        permanent: false,
-      },
-    }
-  }
-
-  return {
-    props: {
-      Users,
-      taskStatus,
-      taskpriofities,
-      project_list
-    }
-  }
 }
 
 export default EditProkect;
