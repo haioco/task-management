@@ -4,39 +4,38 @@ import { FiChevronLeft, FiPlus } from 'react-icons/fi'
 import Link from 'next/link'
 import PrivateRequest from '../../api/PrivateRequest'
 import Skeleton from '@mui/material/Skeleton'
+import useSwr from 'swr'
 
 const TaskWidget = () => {
-  const [tasklist, setTasklist] = useState<any>()
-
-  useEffect(() => {
+  const getProject = () =>
     PrivateRequest()
-      .get('/tasks')
+      .get('/projects')
       .then(res => {
-        setTasklist(res.data.tasks)
+        return res.data.data
       })
       .catch(err => {
         console.log('err tasks', err)
+        return err
       })
-  }, [])
-
+  const {error, data} = useSwr('projects', getProject)
   return (
     <div>
       <Card className={'bg-[#eef2fb]'}>
         <Box className={'flex items-center justify-between m-5'}>
           <Box className={'bg-[#ffb800] p-1 rounded-lg'}>
-            <Typography>فعالیت های من</Typography>
+            <Typography>پروژه ها</Typography>
           </Box>
           <Box>
-            <Link href={'/task/list/'}>
+            <Link href={'/project/list/'}>
               مشاهده همه
             </Link>
           </Box>
         </Box>
         <Divider />
-        {tasklist ? (
-          tasklist.slice(0, 5).map((item: any, index: any) => (
+        {data && !error ? (
+          data.slice(0, 5).map((item: any, index: any) => (
             <>
-            <Link href={`/task/show/${item.id}`} key={index}>
+            <Link href={`/project/show/${item.id}`} key={index}>
             <Box className={'m-4 cursor-pointer  flex justify-between items-center h-6/12'} >
                 <div>
                   <Box>
@@ -60,10 +59,10 @@ const TaskWidget = () => {
           </div>
         )}
         <Box className={'mt-5 flex justify-center'}>
-          <Link href={'/task'} passHref>
+          <Link href={'/project/'} passHref>
             <Button style={{ height: 60 }} className={'blue-grad-btn w-10/12'} variant={'contained'}>
               <FiPlus className={'ml-5'} size={25} />
-              افزودن فعالیت جدید
+              افزودن پروژه جدید
             </Button>
           </Link>
         </Box>

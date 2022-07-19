@@ -52,7 +52,7 @@ const ChangeTaskStatus = ({id,status_text,onChange}: {id:any,status_text:string,
   useEffect(() => {
     getTaskstatusitem()
   }, [])
-  
+
 return (
     <div>
       <Button
@@ -63,7 +63,7 @@ return (
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
       >
-        <p className={'text-yellow-500 font-bold'}>{status_text}</p>
+        <p className={'text-info font-bold'}>{status_text}</p>
       </Button>
       <Menu
         id='basic-menu'

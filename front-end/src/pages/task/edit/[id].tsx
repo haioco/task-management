@@ -27,7 +27,7 @@ const EidtTask = () => {
   const [members, setMembers] = useState<any>()
   const [score, setScore] = useState<any>()
   const [file, setFile] = useState<string | Blob>()
-
+  const [taskUsers, setTaskUsers] = useState<any>()
   const router = useRouter()
   // setTimeEstimated('')
   const {id} = router.query
@@ -86,6 +86,7 @@ const EidtTask = () => {
       setProject(res.data.task.project_id)
       setTaskStatus(res.data.task.status_id)
       setScore(res.data.task.score)
+      setTaskUsers(res.data.task.task_members)
       setTime(res.data.task.estimated_time)
       setProficiency(res.data.task.proficiency)
       setPriority(res.data.task.priority_id)
@@ -125,7 +126,7 @@ const EidtTask = () => {
                    <TaskStatus status={taskStatus} onChange={(task:any) => setTaskStatus(task)} />
                  </Grid>
                  <Grid item lg={3}>
-                   <AddMember onChange={(memmber:any) => setMembers(memmber)}/>
+                   <AddMember taskMembers={taskUsers} onChange={(memmber:any) => setMembers(memmber)}/>
                  </Grid>
                  <Grid item lg={12}>
                    <Divider>
@@ -204,7 +205,7 @@ const EidtTask = () => {
                  </Grid>
                </Grid>
                <div className={'mt-5 flex justify-end'}>
-                 <Button size={'large'} onClick={handleSubmitTask} className={'bg-black mt-5 hover:bg-black text-white '}>ایجاد فعالیت</Button>
+                 <Button size={'large'} onClick={handleSubmitTask} className={'bg-black mt-5 hover:bg-black text-white '}>ویرایش فعالیت</Button>
                </div>
              </>
             ): 'loading'}
