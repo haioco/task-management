@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Resources\TaskResource;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use stdClass;
@@ -235,7 +236,7 @@ class TaskController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'id' => 'required|integer|exists:tasks,id',
-            'title' => 'nullable|string|unique:tasks',
+            'title' => 'nullable|string',
             'description' => 'nullable|string',
             'project_id' => 'nullable|integer|exists:projects,id',
             'parent_task_id' => 'nullable|integer|exists:tasks,id',
@@ -303,14 +304,15 @@ class TaskController extends Controller
 
             $request->reset_members == 1 ? $task->clearMembers() : null;
 
-            $request->task_members ? $task->addMembers($request->task_members) : null;
+            isset($request->task_members) && !empty($request->task_members) ? $task->addMembers($request->task_members) : null;
 
             $task->save();
         } catch (\Throwable $th) {
             DB::rollBack();
             return response()->json([
                 'status' => 'error',
-                'message' => 'internal server error'
+                'message' => 'internal server error',
+                'error' => "$th"
             ], 500);
         }
 
