@@ -2,12 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9fbc09e1-458e-4c3a-9a38-0a0aab8e669a" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/front-end/src/@core/components/Memeber/AddMemberToState.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/.env" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/@core/api/AppUrl.ts" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/@core/api/AppUrl.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front-end/src/@core/api/PrivateRequest.ts" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/@core/api/PrivateRequest.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/@core/api/request.ts" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/@core/api/request.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/pages/task/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/pages/task/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/@core/components/dashboard-main/TaskWidget.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/@core/components/dashboard-main/TaskWidget.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/@core/components/tasks/ChangeTaskStatus.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/@core/components/tasks/ChangeTaskStatus.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/pages/project/components/AddProjectOwner.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/pages/project/components/AddProjectOwner.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/pages/project/components/Editor.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/pages/project/components/Editor.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/pages/project/edit/[id].tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/pages/project/edit/[id].tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/pages/project/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/pages/project/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/pages/project/list/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/pages/project/list/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/pages/task/components/AddMember.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/pages/task/components/AddMember.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/pages/task/edit/[id].tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/pages/task/edit/[id].tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/pages/task/list.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/pages/task/list.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,13 +88,14 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/front-end/src/lib/redux/states" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/front-end/src/@core/components/Memeber" />
     <property name="nodejs_package_manager_path" value="yarn" />
     <property name="ts.external.directory.path" value="C:\Users\Front-dev\Desktop\my project\task-management\front-end\node_modules\typescript\lib" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Front-dev\Desktop\my project\task-management\front-end\src\@core\components\Memeber" />
       <recent name="C:\Users\Front-dev\Desktop\my project\task-management\front-end\src\lib\redux\states" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
