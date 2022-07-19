@@ -34,7 +34,11 @@ const Tasks = ({parent_id, parent_name} : {parent_id?: number | string , parent_
     members && members.length > 0 && members.map((item:any) => {
       converTOarrMembers.push(item.id)
     })
-
+    const config = {
+      headers: {
+        'content-type': 'multipart/form-data',
+      },
+    };
     const dataTask  = {
       title: title,
       score: score,
@@ -48,11 +52,29 @@ const Tasks = ({parent_id, parent_name} : {parent_id?: number | string , parent_
       status_id: taskStatus,
       description: description
     }
+    toast.loading('در حال ایجاد فعالیت')
     PrivateRequest().post('/task/store', dataTask).then((res) => {
+      console.log('task store', res.data.task.id)
       if (res.status === 200) {
-        toast.success('فعالیت جدید ایجاد شد   ')
+          if (file) {
+            toast.loading('در حال بارگزاری فایل')
+            const formData = new FormData();
+            formData.append('file', file as File)
+            formData.append('task_id', res.data.task.id)
+            PrivateRequest().post('/task/file/upload', formData, config).then((res) => {
+              toast.remove()
+              toast.success('فایل بارگزاری شد')
+            }).catch((err) => {
+              toast.remove()
+              toast.error( 'فایل بارگزاری نشد')
+              console.log('err file upload', err)
+            })
+          }
+          toast.remove()
+         toast.success('فعالیت جدید ایجاد شد   ')
       }
     }).catch((err) => {
+      toast.remove()
       toast.error(err.response.data.error)
       console.log('err submit task', err)
     })
@@ -61,19 +83,6 @@ const Tasks = ({parent_id, parent_name} : {parent_id?: number | string , parent_
     const fileList  = e.target.files
     if (!fileList) return
     setFile(fileList[0])
-    const config = {
-      headers: {
-        'content-type': 'multipart/form-data',
-      },
-    };
-    const formData = new FormData();
-    formData.append('file', file as File)
-    formData.append('task_id', '1212')
-    PrivateRequest().post('/task/file/upload', formData, config).then((res) => {
-      console.log('res file upload', res)
-    }).catch((err) => {
-      console.log('err file upload', err)
-    })
   }
 
 

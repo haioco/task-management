@@ -18,7 +18,10 @@ const PrivateRequest = (ctx?: any) => {
     const axiIns = axios.create({
       baseURL: appServerLocal,
       headers: {
-        Authorization: handleToken
+        Authorization: handleToken,
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': '*',
+        'Content-Type': 'application/json',
       },
       withCredentials: true
     })
