@@ -30,7 +30,7 @@ class Task extends Model
     {
         DB::beginTransaction();
         try {
-            $this->users()->sync($members_id, false);
+            $this->users()->sync($members_id, true);
         } catch (\Exception $e) {
             DB::rollBack();
             return false;

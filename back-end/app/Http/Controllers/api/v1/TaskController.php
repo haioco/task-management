@@ -251,7 +251,7 @@ class TaskController extends Controller
             'end_at' => 'nullable|date',
             'score' => 'nullable|integer',
             'task_members' => 'nullable|array',
-            'reset_members' => 'nullable|integer'
+            // 'reset_members' => 'nullable|integer'
         ]);
 
         if ($validator->fails()) {
@@ -302,9 +302,9 @@ class TaskController extends Controller
 
             $task->score = isset($request->score) ? $request->score : $task->score;
 
-            $request->reset_members == 1 ? $task->clearMembers() : null;
+            // $request->reset_members == 1 ? $task->clearMembers() : null;
 
-            isset($request->task_members) && !empty($request->task_members) ? $task->addMembers($request->task_members) : null;
+            isset($request->task_members) && !empty($request->task_members) ?  $task->addMembers($request->task_members) : null;
 
             $task->save();
         } catch (\Throwable $th) {

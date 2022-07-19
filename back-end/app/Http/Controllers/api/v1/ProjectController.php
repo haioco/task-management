@@ -9,6 +9,7 @@ use App\Models\Project;
 use App\Models\Task;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use stdClass;
@@ -46,10 +47,13 @@ class ProjectController extends Controller
             ], 400);
         }
 
+        DB::beginTransaction();
 
         $project = new Project();
 
         $project->title = $request->title;
+
+        $project->department_id = $request->department_id;
 
         $project->description = isset($request->description) ? $request->description : null;
 
@@ -84,7 +88,7 @@ class ProjectController extends Controller
             }
         }
 
-
+        DB::commit();
         return response()->json([
             'status' => 'success',
             'message' => 'Project created successfully',
@@ -100,7 +104,7 @@ class ProjectController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'project_id' => 'required|integer|exists:projects,id',
-            
+
             'attachment' => 'required|file|mimes:jpeg,png,jpg,gif,svg,pdf,doc,docx,xls,xlsx,ppt,pptx,zip,rar',
         ]);
 

@@ -25,7 +25,7 @@ class UserController extends Controller
             return response()->json([
                 'status' => 'error',
                 'error' => 'User not found'
-            ], 404);
+            ], 400);
         }
 
         if (Hash::check($request->password, $user->password)) {
@@ -277,7 +277,7 @@ class UserController extends Controller
             return response()->json([
                 'status' => 'error',
                 'message' => 'User not found'
-            ], 404);
+            ], 400);
         }
 
         $data = UserResource::make($user);
