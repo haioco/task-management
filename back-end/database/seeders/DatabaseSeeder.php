@@ -73,7 +73,7 @@ class DatabaseSeeder extends Seeder
         Status::create(['status_text' => 'نیاز به بررسی']);
         Status::create(['status_text' => 'بسته شد']);
 
-        Department::create(['department_name' => 'تست',]);
+        Department::create(['department_name' => 'پیش فرض',]);
 
         $project1 = Project::create([
             'title' => 'اولین تسک اتوماتیک',

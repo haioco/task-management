@@ -28,10 +28,14 @@ class Task extends Model
 
     public function addMembers($members_id)
     {
-        foreach ($members_id as $member_id) {
-            $this->users()->attach($member_id);
-            $this->users()->sync($member_id, false);
+        DB::beginTransaction();
+        try {
+            $this->users()->sync($members_id, true);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return false;
         }
+        DB::commit();
     }
 
     // ==========================================
