@@ -35,9 +35,9 @@ Route::post('/login', [UserController::class, 'login']);
 // ============================================================================================================================
 Route::middleware('auth:api', 'admin.middleware')->group(function () {
     Route::post('/project', [ProjectController::class, 'store']);
-    Route::delete('/project', [ProjectController::class, 'delete']);
+    Route::delete('/project/delete/{id}', [ProjectController::class, 'delete']);
     Route::put('/project/update', [ProjectController::class, 'update']);
-    Route::delete('/project/delete', [ProjectController::class, 'deleteProperties']);
+    Route::post('/project/delete/property', [ProjectController::class, 'deleteProperties']);
 
     // User routes ---------------------------------------------------------------------------------------------------------
     Route::post('/user', [UserController::class, 'store']);
