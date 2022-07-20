@@ -5,7 +5,7 @@ import Cookies from 'js-cookie'
 
 // ** Next Import
 import { useRouter } from 'next/router'
-
+import {useDispatch} from "react-redux";
 
 // ** Axios
 import axios from 'axios'
@@ -18,6 +18,7 @@ import { AuthValuesType, RegisterParams, LoginParams, ErrCallbackType, UserDataT
 import Request from "../@core/api/request";
 import PrivateRequest from "../@core/api/PrivateRequest";
 import toast from "react-hot-toast";
+import {USER_INFO} from "../lib/redux/actions/UserInfoAction";
 
 // ** Defaults
 const defaultProvider: AuthValuesType = {
@@ -47,7 +48,7 @@ const AuthProvider = ({ children }: Props) => {
 
   // ** Hooks
   const router = useRouter()
-
+  const dispatch = useDispatch()
   useEffect(() => {
     const initAuth = async (): Promise<void> => {
       setIsInitialized(true)
@@ -57,9 +58,11 @@ const AuthProvider = ({ children }: Props) => {
       if (storedToken) {
         setLoading(true)
         await PrivateRequest().get('user-info').then(async (res) => {
-          console.log('user-info', res.data.user[0])
+          console.log('user-info', res.data.user)
           setLoading(false)
-          setUser({ ...res.data.user[0]})
+
+          dispatch(USER_INFO(res.data.user))
+          setUser({ ...res.data.user})
         }).catch((err) => {
           toast.error('خطا در احراز هویت')
           localStorage.removeItem('userData')
@@ -68,10 +71,8 @@ const AuthProvider = ({ children }: Props) => {
           setUser(null)
           setLoading(false)
           const returnUrl = router.pathname
-          console.log('return url', returnUrl)
           const redirectURL = returnUrl && returnUrl !== '/' ? returnUrl : '/'
           router.replace(`/login/?returnUrl=${redirectURL}` as string)
-          console.log('err get user-info', err)
         })
 
         // await axios
@@ -104,10 +105,12 @@ const AuthProvider = ({ children }: Props) => {
        console.log('auth accessToken', res.data.access_token)
        await Cookies.set('accessToken', res.data.access_token)
        await window.localStorage.setItem('accessToken', res.data.access_token)
-       await window.localStorage.setItem('userData', JSON.stringify(res.data.user))
+       await window.localStorage.setItem('userData', JSON.stringify(res.data.data))
 
        // console.log('res data user role', res.data.user.role)
-       setUser({ ...res.data.user })
+       setUser({ ...res.data.data })
+       console.log('...res.data.user', res.data)
+       dispatch(USER_INFO(res.data.data))
        const returnUrl = router.query.returnUrl
        const redirectURL = returnUrl && returnUrl !== '/' ? returnUrl : '/'
        router.replace(redirectURL as string)

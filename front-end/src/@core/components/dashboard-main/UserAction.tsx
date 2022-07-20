@@ -6,17 +6,20 @@ import Status from './Status'
 import FastAccess from './FastAccess'
 import Tasks from './Tasks'
 import TaskWidget from './TaskWidget'
+import {useSelector} from "react-redux";
+import {RootReducer} from "../../../lib/redux/reducers";
 
 const UserAction = () => {
+  const user_info = useSelector((state:RootReducer) => state.UserInfo.userInfo)
   return (
     <FadeIn>
       <Typography className={'font-black flex items-center text-gray-400'} variant={'h4'}>
         امروز قصد انجام چه کاری رو داری
-        <p className={'m-3 primary-text-h font-bold'}>هادی</p>
+        <p className={'m-3 primary-text-h font-bold'}>{user_info.full_name}</p>
         عزیز؟
       </Typography>
       <br />
-      <Grid container className={'mb-5'} spacing={5}>
+      <Grid container dir={'rtl'} className={'mb-5'} spacing={5}>
         <Grid item lg={4}>
           <TaskWidget />
         </Grid>
@@ -26,8 +29,8 @@ const UserAction = () => {
         <Grid item lg={4}>
           <Status />
         </Grid>
+        <Tasks />
       </Grid>
-      <Tasks />
       <br />
       <Memos />
       <br />

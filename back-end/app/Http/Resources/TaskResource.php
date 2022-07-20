@@ -42,8 +42,8 @@ class TaskResource extends JsonResource
 
             'score' => $this->score,
 
-            'task_members' => $this->getMembers(),
-            'task_observers' => $this->getObservers(),
+            'task_members' => $this->getMembers(false),
+            'task_observers' => $this->getObservers(false),
 
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,

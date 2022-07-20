@@ -7,7 +7,7 @@ import MenuItem from "@mui/material/MenuItem";
 
 const TaskStatus = (props:any) => {
   const [tastStatusList, setTaskStatusList] = useState<any>()
-  const [taskStatus, setTaskStatus] = useState<any>()
+  const [taskStatus, setTaskStatus] = useState<any>(props.status)
 
   const handleChange = (event: SelectChangeEvent) => {
     console.log('event.target.value', event.target.value)
@@ -24,7 +24,7 @@ const TaskStatus = (props:any) => {
 
   useEffect(() => {
     props.onChange(taskStatus)
-  }, [taskStatus])
+  }, [])
 
   return (
     <div>

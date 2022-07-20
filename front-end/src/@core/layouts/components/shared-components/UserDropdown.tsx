@@ -28,6 +28,8 @@ import { useAuth } from 'src/hooks/useAuth'
 
 // ** Type Imports
 import { Settings } from 'src/@core/context/settingsContext'
+import {useSelector} from "react-redux";
+import {RootReducer} from "../../../../lib/redux/reducers";
 
 interface Props {
   settings: Settings
@@ -43,6 +45,8 @@ const BadgeContentSpan = styled('span')(({ theme }) => ({
 }))
 
 const UserDropdown = (props: Props) => {
+  const user_info = useSelector((state:RootReducer) => state.UserInfo)
+
   // ** Props
   const { settings } = props
 
@@ -126,7 +130,7 @@ const UserDropdown = (props: Props) => {
               <Avatar alt='John Doe' src='/images/avatars/1.png' sx={{ width: '2.5rem', height: '2.5rem' }} />
             </Badge>
             <Box sx={{ display: 'flex', ml: 3, alignItems: 'flex-start', flexDirection: 'column' }}>
-              <Typography sx={{ fontWeight: 600 }}>بیژن سعیدی</Typography>
+              <Typography sx={{ fontWeight: 600 }}> {user_info.name}</Typography>
               <Typography variant='body2' sx={{ fontSize: '0.8rem', color: 'text.disabled' }}>
                 مدیر سیستم
               </Typography>

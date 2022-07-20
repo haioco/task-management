@@ -19,3 +19,19 @@ $ npm install
 $ yarn install recomemned
 ```
 
+run project dev mode:
+```sh
+$ npm run dev
+$ yarn dev
+```
+build and run project production mode:
+```sh
+$ npm run build
+$ npm start
+-----
+$ yarn build
+$ yarn start
+
+```
+
+

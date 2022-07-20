@@ -31,7 +31,9 @@ class DatabaseSeeder extends Seeder
 
         $user = User::create([
             'name' => 'admin',
+            'last_name' => 'adminian',
             'password' => Hash::make('admin'),
+            'mobile' => '09121234567',
             'email' => 'admin@admin.com'
         ]);
 
@@ -40,6 +42,7 @@ class DatabaseSeeder extends Seeder
         $user = User::create([
             'name' => 'حسین',
             'last_name' => 'تست',
+            'mobile' => '09121234567',
             'password' => Hash::make('123456'),
             'email' => 'hosein@test.com'
         ]);
@@ -49,6 +52,7 @@ class DatabaseSeeder extends Seeder
         $userObserver = User::create([
             'name' => 'کاربر ناظر',
             'last_name' => 'تستر',
+            'mobile' => '09121234567',
             'password' => Hash::make('123456'),
             'email' => 'nazer@test.com'
         ]);
@@ -69,7 +73,7 @@ class DatabaseSeeder extends Seeder
         Status::create(['status_text' => 'نیاز به بررسی']);
         Status::create(['status_text' => 'بسته شد']);
 
-        Department::create(['department_name' => 'تست',]);
+        Department::create(['department_name' => 'پیش فرض',]);
 
         $project1 = Project::create([
             'title' => 'اولین تسک اتوماتیک',
@@ -91,8 +95,6 @@ class DatabaseSeeder extends Seeder
 
         $project1->members()->attach($user);
         $project1->observers()->attach($userObserver);
-
-
 
         $task = Task::create([
             'title' => 'اولین تسک',

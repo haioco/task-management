@@ -9,6 +9,7 @@ use App\Models\TaskAttachment;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use phpDocumentor\Reflection\Types\Self_;
 
 class Task extends Model
 {
@@ -27,10 +28,14 @@ class Task extends Model
 
     public function addMembers($members_id)
     {
-        foreach ($members_id as $member_id) {
-            $this->users()->attach($member_id);
-            $this->users()->sync($member_id, false);
+        DB::beginTransaction();
+        try {
+            $this->users()->sync($members_id, true);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return false;
         }
+        DB::commit();
     }
 
     // ==========================================
@@ -46,9 +51,13 @@ class Task extends Model
         $this->task_members()->detach();
     }
 
-    public function getMembers()
+    public function getMembers($extend = false)
     {
-        return $this->task_members()->get()->pluck('name', 'id');
+        $members = $this->task_members()->get();
+
+        $extend ? null : $members->pluck('name', 'id');
+
+        return $members;
     }
 
     // ==========================================
@@ -64,9 +73,13 @@ class Task extends Model
         $this->task_observers()->detach();
     }
 
-    public function getObservers()
+    public function getObservers($extend = false)
     {
-        return $this->task_observers()->get()->pluck('name', 'id');
+        $observers = $this->task_observers()->get();
+
+        $extend ? null : $observers->pluck('name', 'id');
+
+        return $observers;
     }
 
 
@@ -85,12 +98,21 @@ class Task extends Model
 
     public function changeStatus($status_id)
     {
+        DB::beginTransaction();
         if ($status_id == 8) {
-            
+            $members = $this->getMembers(false);
+            $members->each(function ($member) {
+                Score::create([
+                    'user_id' => $member->id,
+                    'task_id' => $this->id,
+                    'score' => $this->score,
+                ]);
+            });
         }
 
         $this->status()->associate($status_id);
         $this->save();
+        DB::commit();
     }
 
 
@@ -148,25 +170,40 @@ class Task extends Model
         return isset($search) &&  $search != '' ? $this->task_attachments()->where('attachment_name', 'like', "%$search%")->get() : $this->task_attachments()->get();
     }
 
-    public function removeAtachment($attachment_id)
+    public function removeAttachment($attachment_id)
     {
         $attachment = $this->task_attachments()->find($attachment_id);
         $attachment->delete();
-        Storage::delete($attachment->attachment_url);
+        if (Storage::exists($attachment->path)) {
+            Storage::delete($attachment->path);
+        }
+    }
+
+    // ==========================================
+    // SUB TASKS / PARENT TASKS
+    // ==========================================
+    public function parentTask()
+    {
+        return Self::find($this->parent_task_id)->first();
+    }
+
+    public function subTasks()
+    {
+        return Self::where('parent_task_id', $this->id)->get();
     }
 
     // attachment_urls
 
     // ===================================================================================
-    public function subTasks()
-    {
-        return $this->hasMany(Task::class, 'parent_task_id');
-    }
+    // public function subTasks()
+    // {
+    //     return $this->hasMany(Task::class, 'parent_task_id');
+    // }
 
-    public function parentTask()
-    {
-        return $this->belongsTo(Task::class, 'parent_task_id');
-    }
+    // public function parentTask()
+    // {
+    //     return $this->belongsTo(Task::class, 'parent_task_id');
+    // }
 
     public function project()
     {

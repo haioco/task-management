@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Box, Button, Card, Container, Divider, TextField, Typography} from "@mui/material";
+import {Box, Button, Card, Divider, TextField, Typography} from "@mui/material";
 import AppContainer from "../../@core/components/app-container/AppContainer";
 import Grid from '@mui/material/Grid';
 import {FiChevronLeft, FiPlus} from "react-icons/fi";
@@ -10,7 +10,7 @@ import FileUploadProject from "./components/FileUploadProject";
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select'
+import Select  from '@mui/material/Select'
 import AddObserverInput from "./components/AddObserverInput";
 import AddProjectOwner from "./components/AddProjectOwner";
 import Link from "next/link";
@@ -20,7 +20,6 @@ import toast from 'react-hot-toast'
 
 
 const Project = (props:any) => {
-  console.log('props', props)
 
   const [importance, setimportance] = React.useState('1');
   const [observers, setObservers] = useState<any>()
@@ -38,7 +37,6 @@ const Project = (props:any) => {
   const handleChangeDescription = (event:any) => {
     setDescription(event)
   };
-  const handleChange = (event: SelectChangeEvent) => { setimportance(event.target.value); };
   const handleChangeFeatures = (event:any) => { setfeatures(event)};
 
   const handleSubmit = () => {
@@ -59,10 +57,11 @@ const Project = (props:any) => {
       members: converTOarrMembers,
       observers: converTOarrObservers,
       description: description,
-      advantages: features,
+      advantages: [features],
+      department_id: '1'
     }
     setLoading(true)
-    PrivateRequest().post('/project', data).then((res) => {
+    PrivateRequest().post('/project', data).then(() => {
       setLoading(false)
       toast.success('پروژه جدید اضاقه شد ')
     }).catch((err) => {

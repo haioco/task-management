@@ -6,12 +6,23 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import PrivateRequest from 'src/@core/api/PrivateRequest'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 import Link from 'next/link'
+import {toast} from "react-hot-toast";
 
 const Users = () => {
   const [users, setUsers] = useState<any>()
-  useEffect(() => {
-    PrivateRequest()
-      .get('/users')
+
+  const deletUser = (id:number | string) => {
+    PrivateRequest().delete(`/user/${id}`).then((res) => {
+      console.log('res delete', res)
+      getUsers()
+      if (res.status === 200) toast.success('کاربر مورد نظر حذف شد')
+    }).catch((err) => {
+      toast.error('کاربر حذف نشد')
+      console.log('err', err)
+    })
+  }
+  const getUsers = () => {
+    PrivateRequest().get('/users')
       .then(res => {
         setUsers(res.data.users)
         console.log('re user', res.data.users)
@@ -19,6 +30,10 @@ const Users = () => {
       .catch(err => {
         console.log('err', err)
       })
+  }
+  useEffect(() => {
+    getUsers()
+
   }, [])
 
   return (
@@ -53,7 +68,7 @@ const Users = () => {
                     </Link>
                   </TableCell>
                   <TableCell align='center'>
-                    <IconButton aria-label='delete'>
+                    <IconButton onClick={() => deletUser(row.id)} aria-label='delete'>
                       <DeleteIcon />
                     </IconButton>
                   </TableCell>

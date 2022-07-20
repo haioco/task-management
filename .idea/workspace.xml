@@ -2,12 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9fbc09e1-458e-4c3a-9a38-0a0aab8e669a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/front-end/src/pages/task/edit/[id].tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/front-end/src/@core/components/Memeber/AddMemberToState.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/navigation/vertical/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/navigation/vertical/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/pages/task/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/pages/task/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/@core/api/PrivateRequest.ts" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/@core/api/PrivateRequest.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/@core/components/dashboard-main/TaskWidget.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/@core/components/dashboard-main/TaskWidget.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/@core/components/tasks/ChangeTaskStatus.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/@core/components/tasks/ChangeTaskStatus.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/pages/project/components/AddProjectOwner.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/pages/project/components/AddProjectOwner.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/pages/project/components/Editor.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/pages/project/components/Editor.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/pages/project/edit/[id].tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/pages/project/edit/[id].tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/pages/project/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/pages/project/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/pages/project/list/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/pages/project/list/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/pages/task/components/AddMember.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/pages/task/components/AddMember.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front-end/src/pages/task/edit/[id].tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/pages/task/edit/[id].tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/front-end/src/pages/task/list.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/pages/task/list.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/pages/users/profile/[id].tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/pages/users/profile/[id].tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,6 +24,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="JavaScript File" />
+        <option value="TypeScript File" />
         <option value="TypeScript JSX File" />
       </list>
     </option>
@@ -32,6 +41,43 @@
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
   </component>
+  <component name="GitToolBoxStore">
+    <option name="recentBranches">
+      <RecentBranches>
+        <option name="branchesForRepo">
+          <list>
+            <RecentBranchesForRepo>
+              <option name="branches">
+                <list>
+                  <RecentBranch>
+                    <option name="branchName" value="swr" />
+                    <option name="lastUsedInstant" value="1658054831" />
+                  </RecentBranch>
+                  <RecentBranch>
+                    <option name="branchName" value="userInfo" />
+                    <option name="lastUsedInstant" value="1658053561" />
+                  </RecentBranch>
+                  <RecentBranch>
+                    <option name="branchName" value="readme" />
+                    <option name="lastUsedInstant" value="1658051936" />
+                  </RecentBranch>
+                  <RecentBranch>
+                    <option name="branchName" value="substask" />
+                    <option name="lastUsedInstant" value="1657535476" />
+                  </RecentBranch>
+                  <RecentBranch>
+                    <option name="branchName" value="redux" />
+                    <option name="lastUsedInstant" value="1657362613" />
+                  </RecentBranch>
+                </list>
+              </option>
+              <option name="repositoryRootUrl" value="file://$PROJECT_DIR$" />
+            </RecentBranchesForRepo>
+          </list>
+        </option>
+      </RecentBranches>
+    </option>
+  </component>
   <component name="ProjectId" id="2BVsCuu2cB8SaXKsAoh1kHG0rqE" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -42,9 +88,38 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/front-end/src/@core/components/Memeber" />
+    <property name="nodejs_package_manager_path" value="yarn" />
     <property name="ts.external.directory.path" value="C:\Users\Front-dev\Desktop\my project\task-management\front-end\node_modules\typescript\lib" />
     <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Front-dev\Desktop\my project\task-management\front-end\src\@core\components\Memeber" />
+      <recent name="C:\Users\Front-dev\Desktop\my project\task-management\front-end\src\lib\redux\states" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Front-dev\Desktop\my project\task-management\front-end\src\@core\components\tasks" />
+      <recent name="C:\Users\Front-dev\Desktop\my project\task-management\front-end\src\lib" />
+      <recent name="C:\Users\Front-dev\Desktop\my project\task-management\front-end\src\@core" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="lint" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/front-end/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="lint" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="npm.lint" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -55,19 +130,17 @@
       <option name="presentableId" value="Default" />
       <updated>1657002483040</updated>
       <workItem from="1657002485013" duration="1070000" />
+      <workItem from="1657175272240" duration="3795000" />
+      <workItem from="1657179628917" duration="12536000" />
+      <workItem from="1657341262328" duration="19430000" />
+      <workItem from="1657513287293" duration="7757000" />
+      <workItem from="1657528615389" duration="9988000" />
+      <workItem from="1658031783309" duration="11567000" />
+      <workItem from="1658204321154" duration="4117000" />
     </task>
     <servers />
   </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/front-end/src/pages/users/profile/[id].tsx</url>
-          <line>62</line>
-          <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
 </project>

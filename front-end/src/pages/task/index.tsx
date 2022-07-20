@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import {Button, Grid, TextField, Typography} from "@mui/material";
-import Skeleton from '@mui/material/Skeleton';
 import AppContainer from "../../@core/components/app-container/AppContainer";
 import AddProject from "./components/AddProject";
 import SelectPriority from "./components/SelectPriority";
@@ -14,13 +13,13 @@ import DescriptionIcon from '@mui/icons-material/Description';
 import Link from "next/link";
 
 
-const Tasks = () => {
+const Tasks = ({parent_id, parent_name} : {parent_id?: number | string , parent_name?: string}) => {
   const [title, setTitle] = useState<any>()
   const [project, setProject] = useState<any>()
   const [priority, setPriority] = useState<any>()
   const [proficiency, setProficiency] = useState<any>()
-  const [proficiencyEstimated, setProficiencyEstimated] = useState<any>()
-  const [level, setLevel] = useState<any>(1)
+  // const [proficiencyEstimated, setProficiencyEstimated] = useState<any>()
+  // const [level, setLevel] = useState<any>(1)
   const [taskStatus, setTaskStatus] = useState<any>()
   const [time, setTime] = useState<any>()
   const [timeEstimated, setTimeEstimated] = useState<any>()
@@ -35,11 +34,16 @@ const Tasks = () => {
     members && members.length > 0 && members.map((item:any) => {
       converTOarrMembers.push(item.id)
     })
-
+    const config = {
+      headers: {
+        'content-type': 'multipart/form-data',
+      },
+    };
     const dataTask  = {
       title: title,
       score: score,
       time: time,
+      parent_task_id: parent_id ? parent_id : null,
       time_estimated: timeEstimated,
       project_id: project,
       priority_id: priority,
@@ -48,33 +52,37 @@ const Tasks = () => {
       status_id: taskStatus,
       description: description
     }
+    toast.loading('در حال ایجاد فعالیت')
     PrivateRequest().post('/task/store', dataTask).then((res) => {
+      console.log('task store', res.data.task.id)
       if (res.status === 200) {
-        toast.success('تسک جدید ایجاد شد   ')
+          if (file) {
+            toast.loading('در حال بارگزاری فایل')
+            const formData = new FormData();
+            formData.append('file', file as File)
+            formData.append('task_id', res.data.task.id)
+            PrivateRequest().post('/task/file/upload', formData, config).then((res) => {
+              toast.remove()
+              toast.success('فایل بارگزاری شد')
+            }).catch((err) => {
+              toast.remove()
+              toast.error( 'فایل بارگزاری نشد')
+              console.log('err file upload', err)
+            })
+          }
+          toast.remove()
+         toast.success('فعالیت جدید ایجاد شد   ')
       }
     }).catch((err) => {
+      toast.remove()
       toast.error(err.response.data.error)
       console.log('err submit task', err)
     })
   }
-
   const handleUpload = (e:React.ChangeEvent<HTMLInputElement>) => {
     const fileList  = e.target.files
     if (!fileList) return
     setFile(fileList[0])
-    const config = {
-      headers: {
-        'content-type': 'multipart/form-data',
-      },
-    };
-    const formData = new FormData();
-    formData.append('file', file as File)
-    formData.append('task_id', '1212')
-    PrivateRequest().post('/task/file/upload', formData, config).then((res) => {
-      console.log('res file upload', res)
-    }).catch((err) => {
-      console.log('err file upload', err)
-    })
   }
 
 
@@ -84,7 +92,10 @@ const Tasks = () => {
         <Grid lg={12} item>
           <AppContainer title={'افزودن فعالیت '}>
             <div className={'flex justify-between'}>
-              <Typography className={'mb-5'} variant={'h5'}>افزودن فعالیت جدید</Typography>
+              <Typography className={'mb-5'} variant={'h5'}> افزودن فعالیت جدید
+                {parent_name && ' برای  ' + parent_name + ' '}
+                {parent_id && ' ' + parent_id + ' '}
+              </Typography>
 
               <Link href='/task/list'>
                 <Button variant={'text'} className={'mb-5'}> لیست فعالیت ها</Button>

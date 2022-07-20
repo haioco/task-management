@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState} from 'react'
 import AppContainer from '../../@core/components/app-container/AppContainer'
 import PrivateRequest from '../../@core/api/PrivateRequest'
 import TableContainer from '@mui/material/TableContainer'
@@ -12,42 +12,26 @@ import IconButton from '@mui/material/IconButton'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import DeleteIcon from '@mui/icons-material/Delete'
 import LinearProgress from '@mui/material/LinearProgress'
-import { Button } from '@mui/material'
-import Menu from '@mui/material/Menu'
-import MenuItem from '@mui/material/MenuItem'
 import EditIcon from '@mui/icons-material/Edit';
 import Link from 'next/link'
 import { toast } from 'react-hot-toast'
+import ChangeTaskStatus from 'src/@core/components/tasks/ChangeTaskStatus'
+import Skeleton from 'react-loading-skeleton'
+import {Avatar} from '@mui/material'
+import Tooltip from '@mui/material/Tooltip';
+
 
 const TaskList = () => {
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
   const [tasklist, setTasklist] = useState<any>()
-  const [status, setstatus] = useState<any>()
 
   const getTasks = () => {
-    PrivateRequest()
-      .get('/tasks')
-      .then(res => {
-        setTasklist(res.data.tasks)
-        console.log('res task', res.data.tasks)
-      })
-      .catch(err => {
-        console.log('err lis task', err)
-      })
+    PrivateRequest().get('/tasks')
+      .then(res => {setTasklist(res.data.tasks)}).catch(err => {console.log('err lis task', err)})
   }
 
-  const getTaskstatusitem = () => {
-    PrivateRequest()
-      .get('/tasks/status')
-      .then(res => {
-        console.log('res data', res.data)
-        setstatus(res.data.tasks)
-      })
-      .catch(err => console.log('err task', err))
-  }
   useEffect(() => {
     getTasks()
-    getTaskstatusitem()
+    console.log('tasklist', tasklist)
   }, [])
 
   /// handle transactios
@@ -56,44 +40,11 @@ const TaskList = () => {
       .delete(`/task/delete/${id}`)
       .then(res => {
         toast.success('این فعالیت حذف شد')
-        console.log('res del', res)
         getTasks()
       })
-      .catch(err => {
-        toast.error('این فعالیت حذف نشد')
+      .catch(err => {toast.error('این فعالیت حذف نشد')
         console.log('err', err)
       })
-  }
-  const handleUpdateTaskStatus = (id?: number, taskId?: number) => {
-    setAnchorEl(null)
-    toast.loading('در حال بروزرسانی وضعیت فعالیت')
-    PrivateRequest()
-      .put(`task/${id}`, {
-        status_id: id,
-        id: taskId
-      })
-      .then(res => {
-        if (res.status === 200) {
-          toast.remove()
-          getTasks()
-        }
-        toast.success('بروزرسانی فعالعیت انجام شد')
-      })
-      .catch(err => {
-        toast.remove()
-        toast.error('بروزرسانی فعالعیت انجام نشد')
-        console.log('err', err)
-      })
-  }
-
-  /// end
-
-  const open = Boolean(anchorEl)
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget)
-  }
-  const handleClose = () => {
-    setAnchorEl(null)
   }
 
   return (
@@ -105,6 +56,7 @@ const TaskList = () => {
               <TableRow>
                 <TableCell>عنوان پروژه</TableCell>
                 <TableCell align='center'>پروژه </TableCell>
+                <TableCell align='center'>کاربران </TableCell>
                 <TableCell align='center'>درصد انجام</TableCell>
                 <TableCell align='center'>اولویت </TableCell>
                 <TableCell align='center'>وضعیت</TableCell>
@@ -121,38 +73,17 @@ const TaskList = () => {
                       {row.title}
                     </TableCell>
                     <TableCell align='center'>{row.project_id}</TableCell>
+                    <TableCell className={'flex'} align='center'>{row.task_members.map((item: any, index: number) => (
+                      <Tooltip title={item.name} key={index}>
+                        <Avatar sx={{ width: 30, height: 30 }} className={'m-1'}>{item.name.split('')[0]}</Avatar>
+                      </Tooltip>
+                    ))}</TableCell>
                     <TableCell align='center'>
                       <LinearProgress value={50} />
                     </TableCell>
                     <TableCell align='center'>{row.priority_text}</TableCell>
                     <TableCell align='center'>
-                      <Button
-                        id='basic-button'
-                        key={row.id}
-                        aria-controls={open ? 'basic-menu' : undefined}
-                        aria-haspopup='true'
-                        aria-expanded={open ? 'true' : undefined}
-                        onClick={handleClick}
-                      >
-                        <p className={'text-yellow-500 font-bold'}>{row.status_text}</p>
-                      </Button>
-                      <Menu
-                        id='basic-menu'
-                        anchorEl={anchorEl}
-                        open={open}
-                        onClose={handleClose}
-                        MenuListProps={{
-                          'aria-labelledby': 'basic-button'
-                        }}
-                      >
-                        {status
-                          ? status.map((status_item: any, index: number) => (
-                              <MenuItem key={index} onClick={() => handleUpdateTaskStatus(status_item.id, row.id)}>
-                                {status_item.status_text}
-                              </MenuItem>
-                            ))
-                          : 'loading'}
-                      </Menu>
+                      <ChangeTaskStatus onChange={() => getTasks()} key={row.id} status_text={row.status_text} id={row.id} />
                     </TableCell>
                     <TableCell align='center'>
                       <Link href={`/task/show/${row.id}`}>
@@ -162,9 +93,11 @@ const TaskList = () => {
                       </Link>
                     </TableCell>
                     <TableCell align='center'>
-                      <IconButton onClick={() => DeleteTask(row.id)} aria-label='delete'>
-                        <EditIcon />
-                      </IconButton>
+                      <Link href={`/task/edit/${row.id}`}>
+                        <IconButton  aria-label='edit'>
+                          <EditIcon />
+                        </IconButton>
+                      </Link>
                     </TableCell>
                     <TableCell align='center'>
                       <IconButton onClick={() => DeleteTask(row.id)} aria-label='delete'>
@@ -172,10 +105,11 @@ const TaskList = () => {
                       </IconButton>
                     </TableCell>
                   </TableRow>
-                ))}
+                )) }
             </TableBody>
           </Table>
         </TableContainer>
+        {!tasklist && <Skeleton className={'w-full'} height={120} />}
       </AppContainer>
     </div>
   )

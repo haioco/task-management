@@ -8,7 +8,7 @@ import toast from 'react-hot-toast'
 const getToken = () => 'Bearer ' + Cookies.get('accessToken')
 const isServer = () => typeof window === 'undefined'
 
-console.log('gettoken', getToken())
+// console.log('gettoken', getToken())
 
 const PrivateRequest = (ctx?: any) => {
   if (ctx) {
@@ -18,7 +18,10 @@ const PrivateRequest = (ctx?: any) => {
     const axiIns = axios.create({
       baseURL: appServerLocal,
       headers: {
-        Authorization: handleToken
+        Authorization: handleToken,
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': '*',
+        'Content-Type': 'application/json',
       },
       withCredentials: true
     })

@@ -16,19 +16,20 @@ const AddUserInput = (props:any) => {
   useEffect(() => {
     props.onChange(owner)
   }, [owner])
-  
+  console.log('props.defaultOwners', props.defaultOwners)
 return (
     <div>
       <FormControl variant="filled" className={'w-full'}>
+        {props.defaultOwners && props.defaultOwners.id}
         <InputLabel id="demo-simple-select-filled-label">سرپرست پروژه</InputLabel>
         <Select
           labelId="demo-simpسle-select-filled-label"
           id="demo-simple-select-filled"
-          value={owner}
+          defaultValue={props.defaultOwners}
           onChange={handleChange}
         >
-          {users.map((item:any, index:number) => (
-            <MenuItem key={index} value={'1'}>{item.name}</MenuItem>
+          {users?.map((item:any, index:number) => (
+            <MenuItem key={index} value={item.id}>{item.name}</MenuItem>
           ))}
         </Select>
       </FormControl>
