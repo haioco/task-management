@@ -29,7 +29,7 @@ const ProjectList = () => {
 
 
   const DeleteProject = (id:number) => {
-    PrivateRequest().delete(`project/${id}`).then((res) => {
+    PrivateRequest().delete(`project/delete/${id}`).then((res) => {
       console.log('res dele', res)
       getProjects()
     }).catch((err) => {
