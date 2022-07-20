@@ -388,27 +388,21 @@ class ProjectController extends Controller
     // =====================================================================================================
     // DELETE PROJECT
     // =====================================================================================================
-    public function delete(Request $request)
+    public function delete(Request $request, $id)
     {
-        $validator = Validator::make($request->all(), [
-            'project_id' => 'required|integer',
-        ]);
-
-        if ($validator->fails()) {
+        if (Project::where('id', '=', $request->id)->exists()) {
+            $project = Project::find($id);
+            $project->delete();
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Project successfully deleted'
+            ], 200);
+        } else {
             return response()->json([
                 'status' => 'error',
-                'message' => $validator->errors()->first()
+                'error' => 'Project not found'
             ], 400);
         }
-
-        // $project = Project::find($request->id);
-        // $project = Project::find($request->project_id);
-        Project::destroy($request->project_id);
-
-        return response()->json([
-            'status' => 'success',
-            'message' => 'project successfully deleted'
-        ], 200);
     }
 
     // =======================================================================================================
