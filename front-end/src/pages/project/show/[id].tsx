@@ -23,6 +23,8 @@ import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import AccessTimeIcon from '@mui/icons-material/AccessTime'
 import { useRouter } from 'next/router'
+import ChangeTaskStatus from "../../../@core/components/tasks/ChangeTaskStatus";
+const parse = require('html-react-parser');
 
 const ShowProject = () => {
   const router = useRouter()
@@ -31,16 +33,13 @@ const ShowProject = () => {
   const [project, setProject] = useState<any>()
   const [tastlist, setTasklist] = useState<any>()
   const open = Boolean(anchorEl)
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget)
-  }
-  const handleClose = () => {
-    setAnchorEl(null)
-  }
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {setAnchorEl(event.currentTarget)}
+  const handleClose = () => {setAnchorEl(null)}
   const getProject = () => {
     PrivateRequest()
       .get(`/project/${id}`)
       .then(res => {
+        console.log('res.data.data', res.data.data)
         setProject(res.data.data)
       })
       .catch(err => {
@@ -49,10 +48,10 @@ const ShowProject = () => {
   }
   const getTasks = () => {
     PrivateRequest()
-      .get('/tasks')
+      .get(`/project/tasks/${id}`)
       .then(res => {
-        setTasklist(res.data.tasks)
-        console.log('res task', res.data.tasks)
+        setTasklist(res.data.data)
+        console.log('res task', res.data.data)
       })
       .catch(err => {
         console.log('err lis task', err)
@@ -61,8 +60,7 @@ const ShowProject = () => {
   useEffect(() => {
     getProject()
     getTasks()
-  })
-
+  }, [])
   return (
     <div>
       {project ? (
@@ -96,7 +94,7 @@ const ShowProject = () => {
             <br />
             <div>
               توضیحات:
-              <p className={'mt-2'}> {project.description}</p>
+              <p className={'mt-2'}> {parse(project.description)}</p>
             </div>
             <Grid className={'mt-5'} container>
               <Grid item lg={6}>
@@ -164,31 +162,10 @@ const ShowProject = () => {
                           <TableCell align='center'>
                             <LinearProgress value={50} />
                           </TableCell>
-                          <TableCell align='center'>{row.priority}</TableCell>
-                          <TableCell align='center'>
-                            <Button
-                              id='basic-button'
-                              aria-controls={open ? 'basic-menu' : undefined}
-                              aria-haspopup='true'
-                              aria-expanded={open ? 'true' : undefined}
-                              onClick={handleClick}
-                            >
-                              <p className={'text-yellow-500 font-bold'}>در حال انجام</p>
-                            </Button>
-                            <Menu
-                              id='basic-menu'
-                              anchorEl={anchorEl}
-                              open={open}
-                              onClose={handleClose}
-                              MenuListProps={{
-                                'aria-labelledby': 'basic-button'
-                              }}
-                            >
-                              <MenuItem onClick={handleClose}>معلق</MenuItem>
-                              <MenuItem onClick={handleClose}>تمام شده </MenuItem>
-                              <MenuItem onClick={handleClose}>بستن</MenuItem>
-                            </Menu>
-                          </TableCell>
+                          <TableCell align='center'>{row.priority_text}</TableCell>
+                            <TableCell align='center'>
+                              <ChangeTaskStatus onChange={() => getTasks()} key={row.id} status_text={row.status_text} id={row.id} />
+                            </TableCell>
                           <TableCell align='center'>
                             <Link href={`/task/show/${row.id}`}>
                               <IconButton aria-label='VisibilityIcon'>

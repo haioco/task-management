@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9fbc09e1-458e-4c3a-9a38-0a0aab8e669a" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/@core/api/AppUrl.ts" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/@core/api/AppUrl.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front-end/src/pages/project/list/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/front-end/src/pages/project/list/index.tsx" afterDir="false" />
-    </list>
+    <list default="true" id="9fbc09e1-458e-4c3a-9a38-0a0aab8e669a" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -40,6 +36,14 @@
               <option name="branches">
                 <list>
                   <RecentBranch>
+                    <option name="branchName" value="frontend" />
+                    <option name="lastUsedInstant" value="1658396230" />
+                  </RecentBranch>
+                  <RecentBranch>
+                    <option name="branchName" value="fixbug" />
+                    <option name="lastUsedInstant" value="1658313075" />
+                  </RecentBranch>
+                  <RecentBranch>
                     <option name="branchName" value="swr" />
                     <option name="lastUsedInstant" value="1658054831" />
                   </RecentBranch>
@@ -50,14 +54,6 @@
                   <RecentBranch>
                     <option name="branchName" value="readme" />
                     <option name="lastUsedInstant" value="1658051936" />
-                  </RecentBranch>
-                  <RecentBranch>
-                    <option name="branchName" value="substask" />
-                    <option name="lastUsedInstant" value="1657535476" />
-                  </RecentBranch>
-                  <RecentBranch>
-                    <option name="branchName" value="redux" />
-                    <option name="lastUsedInstant" value="1657362613" />
                   </RecentBranch>
                 </list>
               </option>
@@ -78,13 +74,14 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/front-end/src/@core/components/Memeber" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="yarn" />
     <property name="ts.external.directory.path" value="C:\Users\Front-dev\Desktop\my project\task-management\front-end\node_modules\typescript\lib" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Front-dev\Desktop\my project\task-management" />
       <recent name="C:\Users\Front-dev\Desktop\my project\task-management\front-end\src\@core\components\Memeber" />
       <recent name="C:\Users\Front-dev\Desktop\my project\task-management\front-end\src\lib\redux\states" />
     </key>
@@ -127,6 +124,7 @@
       <workItem from="1657528615389" duration="9988000" />
       <workItem from="1658031783309" duration="11567000" />
       <workItem from="1658204321154" duration="4117000" />
+      <workItem from="1658394578773" duration="2350000" />
     </task>
     <servers />
   </component>

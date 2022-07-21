@@ -92,20 +92,24 @@ const Project = (props:any) => {
           <Divider />
           {props.project_list.data.map((item:any, index:any) => (
             <>
-              <Box className={'m-4 cursor-pointer  flex justify-between items-center h-6/12'} key={index}>
-                <div>
-                  <Box>
-                    <Typography className={'ir-yekan-black text-black'}>
-                      {item.title}
-                    </Typography>
-                  </Box>
-                  <Box className={'mt-1'}>
-                    <span className={'font-light'}>{item.status}</span>
-                  </Box>
-                </div>
-                <div style={{ borderRadius: '50%' }} className={'bg-blue-200 p-1'}>
-                  <FiChevronLeft />
-                </div>
+              <Box  key={index}>
+                <Link href={`/project/show/${item.id}`} passHref>
+                  <div className={'m-4 cursor-pointer  flex justify-between items-center h-6/12'}>
+                    <div>
+                      <Box>
+                        <Typography className={'ir-yekan-black text-black'}>
+                          {item.title}
+                        </Typography>
+                      </Box>
+                      <Box className={'mt-1'}>
+                        <span className={'font-light'}>{item.status}</span>
+                      </Box>
+                    </div>
+                    <div style={{ borderRadius: '50%' }} className={'bg-blue-200 p-1'}>
+                      <FiChevronLeft />
+                    </div>
+                  </div>
+                </Link>
               </Box>
               <Divider />
             </>
