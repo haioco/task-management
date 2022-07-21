@@ -19,6 +19,7 @@ const ShowTask = () => {
     PrivateRequest()
       .get(`/task/${id}`)
       .then(res => {
+        console.log('res.data.task', res.data.task)
         setTask(res.data.task)
       })
       .catch(err => {

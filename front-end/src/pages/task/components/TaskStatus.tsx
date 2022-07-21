@@ -24,7 +24,7 @@ const TaskStatus = (props:any) => {
 
   useEffect(() => {
     props.onChange(taskStatus)
-  }, [status])
+  }, [taskStatus])
 
   return (
     <div>
